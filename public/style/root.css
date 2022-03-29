@@ -1,0 +1,19 @@
+:root {
+    --color-xd: #2b80c8;
+    --color-d: #2b9fc8;
+    --color-m: #6fcff8;
+    --color-l: #c2e8e8;
+    --color-xl: #f3f3f3;
+
+    --font-s: 15px;
+    --font-m: 17px;
+    --font-l: 19px;
+
+    --radius-s: 5px;
+    --radius-m: 10px;
+    --radius-l: 15px;
+
+    --space-s: 5px;
+    --space-m: 10px;
+    --space-l: 15px;
+}

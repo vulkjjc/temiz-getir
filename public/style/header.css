@@ -1,0 +1,32 @@
+.header-main {
+    z-index: 2;
+    position: fixed;
+    top: 0;
+
+    width: 100%;
+    border-bottom-right-radius: var(--radius-m);
+
+    background-color: var(--color-m);
+    border-bottom: 2px var(--color-xd) solid;
+}
+
+.header-item {
+    display: inline-block;
+
+    padding: var(--space-l);
+
+    font-size: var(--font-m);
+    border-bottom: 1px var(--color-m) solid;
+
+    cursor: pointer;
+}
+.header-item:hover {
+    border-color: var(--color-xl);
+    color: var(--color-xl);
+}
+
+.header-logo {
+    width: 40px;
+    margin: calc(-1 * var(--space-l));
+    padding: 0 var(--space-s);
+}

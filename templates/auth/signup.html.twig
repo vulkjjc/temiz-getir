@@ -1,0 +1,24 @@
+{% extends "main.html.twig" %}
+
+{% block body %}
+    <form class="main-box card-box block-middle" action="{{ path("signup") }}" method="POST">
+        <div class="main-title card-title"> Create an Account </div>
+
+        {% if error.message is defined %}
+            <div class="main-error card-error"> {{ error.message }} </div>
+        {% endif %}
+
+        <div class="card-cont block-middle">
+            <input class="main-input card-input" name="username" placeholder="username" pattern="^[a-zA-Z0-9_]{1,25}$" required>
+            <input class="main-input card-input" name="email" placeholder="email" type="email" required>
+            <input class="main-input card-input" name="password" type="password" placeholder="password" required>
+            <input class="main-input card-input" name="password-repeat" type="password" placeholder="password repeat" required>
+        </div>
+
+        <div class="card-info-text-cont">
+            <a class="info-text" href="{{ path("login") }}"> Already a member? </a>
+        </div>
+
+        <button class="main-button card-button" type="submit" name="submit"> Signup </button>
+    </form>
+{% endblock %}

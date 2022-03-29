@@ -1,0 +1,31 @@
+{% extends "main.html.twig" %}
+
+{% block body %}
+
+    <form method="GET" action="{{ path("search_services") }}">
+        <input class="block-middle main-input main-search-input" name="search" placeholder="search..." required>
+    </form>
+
+    <div class="services-temp">
+        <a class="service-box service-box-l" href="">
+            <div class="main-title service-title"> Yardimcim Kuru Temizleme </div>
+        </a>
+
+        <a class="service-box" href="">
+            <div class="main-title service-title"> Yardimcim Lostra </div>
+        </a>
+
+        <a class="service-box" href="">
+            <div class="main-title service-title"> Yardimcim Utu </div>
+        </a>
+
+        <a class="service-box" href="">
+            <div class="main-title service-title"> Yardimcim Hali </div>
+        </a>
+
+        <a class="service-box" href="">
+            <div class="main-title service-title"> Yardimcim Yorgan/Battaniye </div>
+        </a>
+    </div>
+
+{% endblock %}
