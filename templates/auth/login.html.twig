@@ -1,5 +1,7 @@
 {% extends "main.html.twig" %}
 
+{% set page_title = "Login" %}
+
 {% block body %}
     <form class="main-box card-box block-middle" action="{{ path("login") }}" method="POST">
         <div class="main-title card-title"> Login </div>
@@ -14,9 +16,11 @@
         </div>
 
         <div class="card-info-text-cont">
-            <a class="info-text" href="{{ path("signup") }}"> Create account </a>
+            <a class="info-text" href="{{ path("signup_choice") }}"> Create account </a>
             <a class="info-text" href="{{ path("password_reset") }}"> Forgot password? </a>
         </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}">
 
         <button class="main-button card-button" type="submit" name="submit"> Login </button>
     </form>

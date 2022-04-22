@@ -4,7 +4,8 @@
     top: 0;
 
     width: 100%;
-    border-bottom-right-radius: var(--radius-m);
+    border-bottom-right-radius: var(--radius-s);
+    border-bottom-left-radius: var(--radius-s);
 
     background-color: var(--color-m);
     border-bottom: 2px var(--color-xd) solid;
@@ -29,4 +30,7 @@
     width: 40px;
     margin: calc(-1 * var(--space-l));
     padding: 0 var(--space-s);
+
+    transition: .6s ease-in-out;
 }
+.header-logo:hover { rotate: -360deg; }

@@ -1,0 +1,18 @@
+.page {
+    background-color: var(--color-l);
+
+    padding: var(--space-l);
+    margin: 0 75px;
+    border-radius: var(--radius-s);
+}
+
+.page-title {
+    margin: var(--space-l);
+    font-size: 30px;
+}
+
+.page-desc {
+    margin: var(--space-l);
+    margin-bottom: 50px;
+    font-size: var(--font-l);
+}

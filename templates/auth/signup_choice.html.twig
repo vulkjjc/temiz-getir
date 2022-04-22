@@ -1,0 +1,15 @@
+{% extends "main.html.twig" %}
+
+{% set page_title = "Signup Choice" %}
+
+{% block body %}
+    <div class="services-temp">
+        <a class="service-box" href="{{ path("signup_customer") }}">
+            <div class="main-title service-title"> Customer Account </div>
+        </a>
+
+        <a class="service-box" href="{{ path("signup_provider") }}">
+            <div class="main-title service-title"> Provider Account </div>
+        </a>
+    </div>
+{% endblock %}

@@ -28,3 +28,46 @@ const getRequestErrorOrRedirect = async (response, format="text") => {
 
     window.location.href = response.url;
 };
+
+const locationSelectAction = (locationSelectForm) => {
+    return getFormRequestResponse(locationSelectForm)
+        .then(async (response) => await parseRequestResult(response, "json"));
+};
+
+const createLocationSelectElement = (name, id) => {
+    let locationSelectElement = document.createElement("select");
+
+    locationSelectElement.className = "main-input card-input";
+    locationSelectElement.name = name;
+    locationSelectElement.id = id;
+
+    return locationSelectElement;
+};
+
+const addLocationSelectElementOptions = (locations, locationSelectElement, defaultOptionText) => {
+    let option = document.createElement("option");
+
+    option.text = defaultOptionText;
+    option.selected = true;
+
+    locationSelectElement.appendChild(option);
+
+    for (let location of locations) {
+        let option = document.createElement("option");
+
+        option.value = location.id;
+        option.text = location.name;
+        option.required = true;
+
+        locationSelectElement.appendChild(option);
+    }
+};
+
+const addLocationSelectElement = (locations, locationSelectCont, attrs) => {
+    locationSelectCont.innerHTML = "";
+
+    let locationSelectElement = createLocationSelectElement(attrs.name, attrs.id);
+    addLocationSelectElementOptions(locations, locationSelectElement, attrs.defaultOptionText);
+
+    locationSelectCont.appendChild(locationSelectElement);
+};

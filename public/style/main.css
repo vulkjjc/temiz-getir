@@ -69,4 +69,9 @@ a {
     border-bottom: 2px var(--color-d) solid;
 }
 
-.main-search-input { width: 90%; }
+.main-search-input {
+    width: 90%;
+
+    transition: .2s ease-in-out;
+}
+.main-search-input:hover { width: 92%; }

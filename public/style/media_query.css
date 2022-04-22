@@ -5,7 +5,7 @@
     }
 }
 
-@media screen and (max-width: 50rem) {
+@media screen and (max-width: 70rem) {
     .header-logo {
         width: 30px;
         margin: calc(-1 * var(--space-m));
@@ -13,5 +13,24 @@
 
     .header-item { padding: var(--space-m); }
 
+    .services-temp {
+        grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+        margin: 20px 0;
+        height: 400px;
+    }
+
+    .service-title { font-size: 25px; }
+
+    .main-search-input { width: 98%; }
+    .main-search-input:hover { width: 100%; }
+
     .card-box { width: 300px; }
+}
+
+@media screen and (max-width: 50rem) {
+    .services-temp {
+        grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
+    }
+
+    .service-title { font-size: var(--font-l); }
 }

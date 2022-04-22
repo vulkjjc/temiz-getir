@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
-    <title> Camasir Sepeti </title>
+    <title> Temiz Getir {% if page_title is defined %} | {{ page_title }} {% endif %} </title>
 
     <link rel="icon" href="/img/icons/logo.webp">
 
@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/style/service.css">
     <link rel="stylesheet" href="/style/card.css">
     <link rel="stylesheet" href="/style/info.css">
+    <link rel="stylesheet" href="/style/page.css">
     <link rel="stylesheet" href="/style/dropdown.css">
     <link rel="stylesheet" href="/style/header.css">
     <link rel="stylesheet" href="/style/footer.css">
@@ -24,16 +25,18 @@
             <img class="header-logo" src="/img/icons/logo.webp">
         </a>
 
-        <a class="header-item" href="{{ path("home") }}"> Camasir Sepeti </a>
+        <a class="header-item" href="{{ path("home") }}"> Temiz Getir </a>
 
         <div class="float-right">
             <a class="header-item" href="{{ path("login") }}"> Login </a>
+            <a class="header-item" href="{{ path("signup_choice") }}"> Signup </a>
 
             <div class="dropdown" tabindex="0">
                 <div class="dropdown-btn header-item">•••</div>
                 <ul class="dropdown-cont position-right">
-                    <a href=""> <li class="dropdown-item"> Settings </li> </a>
+                    <a href="{{ path("settings") }}"> <li class="dropdown-item"> Settings </li> </a>
                     <a href="{{ path("about") }}"> <li class="dropdown-item"> About </li> </a>
+                    <a href="{{ path("contact") }}"> <li class="dropdown-item"> Contact </li> </a>
                 </ul>
             </div>
         </div>

@@ -1,16 +1,31 @@
 {% extends "main.html.twig" %}
 
+
+{% set page_title = "Signup Customer" %}
+
 {% block body %}
-    <form class="main-box card-box block-middle" action="{{ path("signup") }}" method="POST">
-        <div class="main-title card-title"> Create an Account </div>
+    {% include "layouts/location_select_forms.html.twig" %}
+
+    <form class="main-box card-box block-middle" action="{{ path("signup_customer") }}" method="POST">
+        <div class="main-title card-title"> Create a Customer Account </div>
 
         {% if error.message is defined %}
             <div class="main-error card-error"> {{ error.message }} </div>
         {% endif %}
 
         <div class="card-cont block-middle">
-            <input class="main-input card-input" name="username" placeholder="username" pattern="^[a-zA-Z0-9_]{1,25}$" required>
+            <input class="main-input card-input" name="name" placeholder="name" pattern="^[a-zA-Z\s]{1,25}$" required>
             <input class="main-input card-input" name="email" placeholder="email" type="email" required>
+            <select id="country-select" class="main-input card-input" name="country" required>
+                <option value="" selected>(Country)</option>
+                {% for country in countries %}
+                    <option value="{{ country.getId() }}">{{ country.getName() }}</option>
+                {% endfor %}
+            </select>
+
+            <div id="city-select-cont"></div>
+            <div id="province-select-cont"></div>
+
             <input class="main-input card-input" name="password" type="password" placeholder="password" required>
             <input class="main-input card-input" name="password-repeat" type="password" placeholder="password repeat" required>
         </div>
