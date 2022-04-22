@@ -6,17 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use App\Service\AuthService;
 use App\Repository\CountryRepository;
 
 class AuthController extends AbstractController
 {
-    private AuthService $authService;
     private CountryRepository $countryRepository;
 
-    public function __construct(AuthService $authService, CountryRepository $countryRepository)
+    public function __construct(CountryRepository $countryRepository)
     {
-        $this->authService = $authService;
         $this->countryRepository = $countryRepository;
     }
 
