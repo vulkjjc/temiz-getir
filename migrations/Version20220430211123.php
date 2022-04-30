@@ -6,7 +6,6 @@ namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
-
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
@@ -17,7 +16,7 @@ use App\Entity\Province;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220420225656 extends AbstractMigration implements ContainerAwareInterface
+final class Version20220430211123 extends AbstractMigration implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
     
@@ -70,7 +69,6 @@ final class Version20220420225656 extends AbstractMigration implements Container
                     $entityManager->flush();
                 }
             }
-
         }
     }
 
@@ -84,20 +82,26 @@ final class Version20220420225656 extends AbstractMigration implements Container
         $this->addSql('CREATE TABLE location (id INT AUTO_INCREMENT NOT NULL, country_id INT DEFAULT NULL, city_id INT DEFAULT NULL, provice_id INT DEFAULT NULL, INDEX IDX_5E9E89CBF92F3E70 (country_id), INDEX IDX_5E9E89CB8BAC62AF (city_id), INDEX IDX_5E9E89CB297419A7 (provice_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE province (id INT AUTO_INCREMENT NOT NULL, city_id INT NOT NULL, name VARCHAR(255) NOT NULL, INDEX IDX_4ADAD40B8BAC62AF (city_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE rating (id INT AUTO_INCREMENT NOT NULL, rating VARCHAR(50) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE service (id INT AUTO_INCREMENT NOT NULL, rating_id INT NOT NULL, ironing_id INT DEFAULT NULL, dry_cleaning_id INT DEFAULT NULL, shoe_cleaning_id INT DEFAULT NULL, user_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, INDEX IDX_E19D9AD2A32EFC6 (rating_id), INDEX IDX_E19D9AD2F4676D16 (ironing_id), INDEX IDX_E19D9AD282C7E409 (dry_cleaning_id), INDEX IDX_E19D9AD2F50151A2 (shoe_cleaning_id), INDEX IDX_E19D9AD2A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE shoe_cleaning (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, rating_id INT NOT NULL, INDEX IDX_2553ECC3A76ED395 (user_id), INDEX IDX_2553ECC3A32EFC6 (rating_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user_customer (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(1500) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user_provider (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(1500) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, location_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(1500) NOT NULL, UNIQUE INDEX UNIQ_8D93D64964D218E (location_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE city ADD CONSTRAINT FK_2D5B0234F92F3E70 FOREIGN KEY (country_id) REFERENCES country (id)');
-        $this->addSql('ALTER TABLE dry_cleaning ADD CONSTRAINT FK_B36D94FA76ED395 FOREIGN KEY (user_id) REFERENCES user_provider (id)');
+        $this->addSql('ALTER TABLE dry_cleaning ADD CONSTRAINT FK_B36D94FA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE dry_cleaning ADD CONSTRAINT FK_B36D94FA32EFC6 FOREIGN KEY (rating_id) REFERENCES rating (id)');
-        $this->addSql('ALTER TABLE ironing ADD CONSTRAINT FK_6A9D5853A76ED395 FOREIGN KEY (user_id) REFERENCES user_provider (id)');
+        $this->addSql('ALTER TABLE ironing ADD CONSTRAINT FK_6A9D5853A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE ironing ADD CONSTRAINT FK_6A9D5853A32EFC6 FOREIGN KEY (rating_id) REFERENCES rating (id)');
         $this->addSql('ALTER TABLE location ADD CONSTRAINT FK_5E9E89CBF92F3E70 FOREIGN KEY (country_id) REFERENCES country (id)');
         $this->addSql('ALTER TABLE location ADD CONSTRAINT FK_5E9E89CB8BAC62AF FOREIGN KEY (city_id) REFERENCES city (id)');
         $this->addSql('ALTER TABLE location ADD CONSTRAINT FK_5E9E89CB297419A7 FOREIGN KEY (provice_id) REFERENCES province (id)');
         $this->addSql('ALTER TABLE province ADD CONSTRAINT FK_4ADAD40B8BAC62AF FOREIGN KEY (city_id) REFERENCES city (id)');
-        $this->addSql('ALTER TABLE shoe_cleaning ADD CONSTRAINT FK_2553ECC3A76ED395 FOREIGN KEY (user_id) REFERENCES user_provider (id)');
+        $this->addSql('ALTER TABLE service ADD CONSTRAINT FK_E19D9AD2A32EFC6 FOREIGN KEY (rating_id) REFERENCES rating (id)');
+        $this->addSql('ALTER TABLE service ADD CONSTRAINT FK_E19D9AD2F4676D16 FOREIGN KEY (ironing_id) REFERENCES ironing (id)');
+        $this->addSql('ALTER TABLE service ADD CONSTRAINT FK_E19D9AD282C7E409 FOREIGN KEY (dry_cleaning_id) REFERENCES dry_cleaning (id)');
+        $this->addSql('ALTER TABLE service ADD CONSTRAINT FK_E19D9AD2F50151A2 FOREIGN KEY (shoe_cleaning_id) REFERENCES shoe_cleaning (id)');
+        $this->addSql('ALTER TABLE service ADD CONSTRAINT FK_E19D9AD2A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
+        $this->addSql('ALTER TABLE shoe_cleaning ADD CONSTRAINT FK_2553ECC3A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE shoe_cleaning ADD CONSTRAINT FK_2553ECC3A32EFC6 FOREIGN KEY (rating_id) REFERENCES rating (id)');
+        $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D64964D218E FOREIGN KEY (location_id) REFERENCES location (id)');
     }
 
     public function down(Schema $schema): void
@@ -107,12 +111,18 @@ final class Version20220420225656 extends AbstractMigration implements Container
         $this->addSql('ALTER TABLE province DROP FOREIGN KEY FK_4ADAD40B8BAC62AF');
         $this->addSql('ALTER TABLE city DROP FOREIGN KEY FK_2D5B0234F92F3E70');
         $this->addSql('ALTER TABLE location DROP FOREIGN KEY FK_5E9E89CBF92F3E70');
+        $this->addSql('ALTER TABLE service DROP FOREIGN KEY FK_E19D9AD282C7E409');
+        $this->addSql('ALTER TABLE service DROP FOREIGN KEY FK_E19D9AD2F4676D16');
+        $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D64964D218E');
         $this->addSql('ALTER TABLE location DROP FOREIGN KEY FK_5E9E89CB297419A7');
         $this->addSql('ALTER TABLE dry_cleaning DROP FOREIGN KEY FK_B36D94FA32EFC6');
         $this->addSql('ALTER TABLE ironing DROP FOREIGN KEY FK_6A9D5853A32EFC6');
+        $this->addSql('ALTER TABLE service DROP FOREIGN KEY FK_E19D9AD2A32EFC6');
         $this->addSql('ALTER TABLE shoe_cleaning DROP FOREIGN KEY FK_2553ECC3A32EFC6');
+        $this->addSql('ALTER TABLE service DROP FOREIGN KEY FK_E19D9AD2F50151A2');
         $this->addSql('ALTER TABLE dry_cleaning DROP FOREIGN KEY FK_B36D94FA76ED395');
         $this->addSql('ALTER TABLE ironing DROP FOREIGN KEY FK_6A9D5853A76ED395');
+        $this->addSql('ALTER TABLE service DROP FOREIGN KEY FK_E19D9AD2A76ED395');
         $this->addSql('ALTER TABLE shoe_cleaning DROP FOREIGN KEY FK_2553ECC3A76ED395');
         $this->addSql('DROP TABLE city');
         $this->addSql('DROP TABLE country');
@@ -121,8 +131,8 @@ final class Version20220420225656 extends AbstractMigration implements Container
         $this->addSql('DROP TABLE location');
         $this->addSql('DROP TABLE province');
         $this->addSql('DROP TABLE rating');
+        $this->addSql('DROP TABLE service');
         $this->addSql('DROP TABLE shoe_cleaning');
-        $this->addSql('DROP TABLE user_customer');
-        $this->addSql('DROP TABLE user_provider');
+        $this->addSql('DROP TABLE user');
     }
 }

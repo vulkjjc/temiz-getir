@@ -5,7 +5,7 @@
 {% block body %}
     {% include "inc/location_select_forms.html.twig" %}
 
-    <form class="main-box card-box block-middle" action="{{ path("signup_provider") }}" method="POST">
+    <form class="main-box card-box block-middle" action="{{ path("signup_provider_init") }}" method="POST">
         <div class="main-title card-title"> Create a Provider Account </div>
 
         {% if error.message is defined %}
@@ -13,21 +13,10 @@
         {% endif %}
 
         <div class="card-cont block-middle">
-            <input class="main-input card-input" name="company-name" placeholder="company name" pattern="^[a-zA-Z0-9\s]{1,25}$" required>
+            <input class="main-input card-input" name="name" placeholder="name" pattern="^[a-zA-Z\s]{1,25}$" required>
             <input class="main-input card-input" name="email" placeholder="email" type="email" required>
 
-            <input type="checkbox" name="service-dryclean" value="">
-            <label for="service-dryclean">Kuru Temizleme</label><br><br>
-            <input type="checkbox" name="service-shoe" value="">
-            <label for="service-shoe">Lostra</label><br><br>
-            <input type="checkbox" name="service-iron" value="">
-            <label for="service-iron">Utu</label><br><br>
-            <input type="checkbox" name="service-carpet" value="">
-            <label for="service-carpet">Hali</label><br><br>
-            <input type="checkbox" name="service-blanket" value="">
-            <label for="service-blanket">Yorgan/Battaniye</label><br><br>
-
-            <select id="country-select" class="main-input card-input" name="country" required>
+            <select id="country-select" class="main-input card-input" name="country-id" required>
                 <option value="" selected>(Country)</option>
                 {% for country in countries %}
                     <option value="{{ country.getId() }}">{{ country.getName() }}</option>
@@ -42,7 +31,7 @@
         </div>
 
         <div class="card-info-text-cont">
-            <a class="info-text" href="{{ path("login") }}"> Already a member? </a>
+            <a class="info-text" href="{{ path("login_choice") }}"> Already a member? </a>
         </div>
 
         <button class="main-button card-button" type="submit" name="submit"> Signup </button>

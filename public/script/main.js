@@ -15,7 +15,7 @@ if (countrySelect && countrySelectForm && citySelectCont && citySelectForm && pr
             cities,
             citySelectCont,
             {
-                "name": "city",
+                "name": "city-id",
                 "id": "city-select",
                 "defaultOptionText": "(Cities)"
             }
@@ -32,7 +32,7 @@ if (countrySelect && countrySelectForm && citySelectCont && citySelectForm && pr
                     provinces,
                     provinceSelectCont,
                     {
-                        "name": "province",
+                        "name": "province-id",
                         "id": "province-select",
                         "defaultOptionText": "(Provinces)"
                     }

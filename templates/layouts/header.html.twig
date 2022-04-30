@@ -28,8 +28,12 @@
         <a class="header-item" href="{{ path("home") }}"> Temiz Getir </a>
 
         <div class="float-right">
-            <a class="header-item" href="{{ path("login") }}"> Login </a>
-            <a class="header-item" href="{{ path("signup_choice") }}"> Signup </a>
+            {% if app.user %}
+                <a class="header-item" href="{{ path("logout") }}"> Logout </a>
+            {% else %}
+                <a class="header-item" href="{{ path("login_choice") }}"> Login </a>
+                <a class="header-item" href="{{ path("signup_choice") }}"> Signup </a>
+            {% endif %}
 
             <div class="dropdown" tabindex="0">
                 <div class="dropdown-btn header-item">•••</div>

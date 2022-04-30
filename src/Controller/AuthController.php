@@ -5,22 +5,14 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
-use App\Repository\CountryRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 class AuthController extends AbstractController
 {
-    private CountryRepository $countryRepository;
-
-    public function __construct(CountryRepository $countryRepository)
+    #[Route("/login/choice", name: "login_choice", methods: ["GET"])]
+    public function loginChoice() : Response
     {
-        $this->countryRepository = $countryRepository;
-    }
-
-    #[Route("/login", name: "login", methods: ["GET", "POST"])]
-    public function login() : Response
-    {
-        return $this->render("auth/login.html.twig");
+        return $this->render("auth/login_choice.html.twig");
     }
 
     #[Route("/signup/choice", name: "signup_choice", methods: ["GET"])]
@@ -29,25 +21,12 @@ class AuthController extends AbstractController
         return $this->render("auth/signup_choice.html.twig");
     }
 
-    #[Route("/signup/customer", name: "signup_customer", methods: ["GET"])]
-    public function signupCustomer() : Response
-    {
-        $countries = $this->countryRepository->findAll();
-
-        return $this->render("auth/signup_customer.html.twig", ["countries" => $countries]);
-    }
-
-    #[Route("/signup/provider", name: "signup_provider", methods: ["GET"])]
-    public function signupProvider() : Response
-    {
-        $countries = $this->countryRepository->findAll();
-
-        return $this->render("auth/signup_provider.html.twig", ["countries" => $countries]);
-    }
-
     #[Route("/password/reset", name: "password_reset", methods: ["GET"])]
     public function passwordReset() : Response
     {
         return $this->render("auth/password_reset.html.twig");
     }
+
+    #[Route("/logout", name: "logout", methods: ["GET"])]
+    public function logout(): Response {}
 }

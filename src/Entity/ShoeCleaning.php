@@ -13,7 +13,7 @@ class ShoeCleaning
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: UserProvider::class)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
@@ -26,12 +26,12 @@ class ShoeCleaning
         return $this->id;
     }
 
-    public function getUser(): ?UserProvider
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?UserProvider $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 

@@ -41,7 +41,7 @@ class City
 
     public function getCountry(): ?Country
     {
-        return $this->country_id;
+        return $this->country;
     }
 
     public function setCountry(?Country $country): self
