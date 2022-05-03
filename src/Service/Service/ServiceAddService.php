@@ -33,26 +33,22 @@ class ServiceAddService
             throw new BadRequestHttpException($violation->getMessage());
         }
 
-        $this->addLocation($service);
+        $this->addService($service);
 
         return $service;
     }
 
-    private function addLocation(Service $service)
+    private function addService(Service $service)
     {
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($service);
         $entityManager->flush();
     }
 
-    private function setLocationAddProperties(
+    private function setServiceAddProperties(
         ServiceAddRequestDTO $serviceAddRequestDTO,
         Service $service
     ): Service {
-        $service->setCountry($this->countryRepository->find($locationAddRequestDTO->countryId));
-        $service->setCity($this->cityRepository->find($locationAddRequestDTO->cityId));
-        $service->setProvince($this->provinceRepository->find($locationAddRequestDTO->provinceId));
-
         return $service;
     }
 }

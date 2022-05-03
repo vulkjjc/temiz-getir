@@ -31,7 +31,7 @@ class CityValidator extends ConstraintValidator
         if (
             !is_numeric($value)
             || empty($city = $this->cityRepository->find($value))
-            || $city->getCountry()->getId() != $this->context->getRoot()->countryId
+            || $city->getCountry()->getId() != $this->context->getRoot()->getCountryId()
         ) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter("{{ string }}", $city->getName())

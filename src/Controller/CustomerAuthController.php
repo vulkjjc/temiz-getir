@@ -10,7 +10,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 use App\Repository\CountryRepository;
 use App\Service\UserCustomer\UserCustomerSignupService;
-use App\Service\Location\LocationAddService;
 use App\DTO\UserCustomer\UserCustomerSignupRequestDTO;
 use App\DTO\Location\LocationAddRequestDTO;
 
@@ -18,16 +17,13 @@ class CustomerAuthController extends AbstractController
 {
     private CountryRepository $countryRepository;
     private UserCustomerSignupService $userCustomerSignupService;
-    private LocationAddService $locationAddService;
 
     public function __construct(
         CountryRepository $countryRepository,
-        UserCustomerSignupService $userCustomerSignupService,
-        LocationAddService $locationAddService
+        UserCustomerSignupService $userCustomerSignupService
     ) {
         $this->countryRepository = $countryRepository;
         $this->userCustomerSignupService = $userCustomerSignupService;
-        $this->locationAddService = $locationAddService;
     }
 
     #[Route("/login/customer", name: "login_customer", methods: ["GET", "POST"])]
@@ -49,14 +45,13 @@ class CustomerAuthController extends AbstractController
 
     #[Route("/signup/customer/init", name: "signup_customer_init", methods: ["POST"])]
     public function signupCustomerInit(
-        LocationAddRequestDTO $locationAddRequestDTO,
-        UserCustomerSignupRequestDTO $userCustomerSignupRequestDTO
+        UserCustomerSignupRequestDTO $userCustomerSignupRequestDTO,
+        LocationAddRequestDTO $locationAddRequestDTO
     ): Response {
         try {
-            $location = $this->locationAddService->attemptToAddLocation($locationAddRequestDTO);
             $this->userCustomerSignupService->attemptToSignupUserCustomer(
                 $userCustomerSignupRequestDTO,
-                $location
+                $locationAddRequestDTO
             );
 
             return $this->redirect($this->generateUrl("login_customer"));

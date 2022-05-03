@@ -10,17 +10,32 @@ use App\Validator\Location as LocationAssert;
 class LocationAddRequestDTO implements RequestDTOInterface
 {
     #[LocationAssert\Country]
-    public string $countryId;
+    private string $countryId;
 
     #[LocationAssert\City]
-    public string $cityId;
+    private string $cityId;
 
     #[LocationAssert\Province]
-    public string $provinceId;
+    private string $provinceId;
 
     public function __construct(Request $request) {
         $this->countryId = $request->request->get("country-id");
         $this->cityId = $request->request->get("city-id");
         $this->provinceId = $request->request->get("province-id");
+    }
+
+    public function getCountryId(): string
+    {
+        return $this->countryId;
+    }
+
+    public function getCityId(): string
+    {
+        return $this->cityId;
+    }
+
+    public function getProvinceId(): string
+    {
+        return $this->provinceId;
     }
 }

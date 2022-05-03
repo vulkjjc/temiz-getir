@@ -10,7 +10,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 use App\Repository\CountryRepository;
 use App\Service\UserProvider\UserProviderSignupService;
-use App\Service\Location\LocationAddService;
 use App\DTO\UserProvider\UserProviderSignupRequestDTO;
 use App\DTO\Location\LocationAddRequestDTO;
 use App\DTO\Service\ServiceAddRequestDTO;
@@ -19,16 +18,13 @@ class ProviderAuthController extends AbstractController
 {
     private CountryRepository $countryRepository;
     private UserProviderSignupService $userProviderSignupService;
-    private LocationAddService $locationAddService;
 
     public function __construct(
         CountryRepository $countryRepository,
-        UserProviderSignupService $userProviderSignupService,
-        LocationAddService $locationAddService
+        UserProviderSignupService $userProviderSignupService
     ) {
         $this->countryRepository = $countryRepository;
         $this->userProviderSignupService = $userProviderSignupService;
-        $this->locationAddService = $locationAddService;
     }
 
     #[Route("/login/provider", name: "login_provider", methods: ["GET", "POST"])]
@@ -50,14 +46,13 @@ class ProviderAuthController extends AbstractController
 
     #[Route("/signup/provider/init", name: "signup_provider_init", methods: ["POST"])]
     public function signupProviderInit(
-        LocationAddRequestDTO $locationAddRequestDTO,
-        UserProviderSignupRequestDTO $userProviderSignupRequestDTO
+        UserProviderSignupRequestDTO $userProviderSignupRequestDTO,
+        LocationAddRequestDTO $locationAddRequestDTO
     ): Response {
         try {
-            $location = $this->locationAddService->attemptToAddLocation($locationAddRequestDTO);
             $this->userProviderSignupService->attemptToSignupUserProvider(
                 $userProviderSignupRequestDTO,
-                $location
+                $locationAddRequestDTO
             );
 
             return $this->redirect($this->generateUrl("login_provider"));

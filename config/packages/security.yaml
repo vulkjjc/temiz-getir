@@ -29,7 +29,7 @@ security:
 
             logout:
                 path: logout
-                target: login_choice
+                target: home
 
             form_login: ~
 

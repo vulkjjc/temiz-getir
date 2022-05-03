@@ -10,28 +10,58 @@ use App\Validator\Service as ServiceAssert;
 class ServiceAddRequestDTO implements RequestDTOInterface
 {
     #[Assert\Regex(pattern: "/^[a-zA-Z0-9_]{1,25}$/", message: "Username is invalid.")]
-    public string $name;
+    private string $name;
 
     #[ServiceAssert\DryCleaning]
-    public string $dryCleaning;
+    private string $dryCleaningId;
 
     #[ServiceAssert\ShoeCleaning]
-    public string $shoeCleaning;
+    private string $shoeCleaningId;
 
     #[ServiceAssert\Ironing]
-    public string $ironing;
+    private string $ironingId;
 
     #[ServiceAssert\CarpetCleaning]
-    public string $carpetCleaning;
+    private string $carpetCleaningId;
 
     #[ServiceAssert\SheetCleaning]
-    public string $sheetCleaning;
+    private string $sheetCleaningId;
 
     public function __construct(Request $request) {
-        $this->dryCleaning = $request->request->get("dry-cleaning");
-        $this->shoeCleaning = $request->request->get("shoe-cleaning");
-        $this->ironing = $request->request->get("ironing");
-        $this->carpetCleaning = $request->request->get("carpet-cleaning");
-        $this->sheetCleaning = $request->request->get("sheet-cleaning");
+        $this->dryCleaningId = $request->request->get("dry-cleaning-id");
+        $this->shoeCleaningId = $request->request->get("shoe-cleaning-id");
+        $this->ironingId = $request->request->get("ironing-id");
+        $this->carpetCleaningId = $request->request->get("carpet-cleaning-id");
+        $this->sheetCleaningId = $request->request->get("sheet-cleaning-id");
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getDryCleaningId(): string
+    {
+        return $this->dryCleaningId;
+    }
+
+    public function getShoeCleaningId(): string
+    {
+        return $this->shoeCleaningId;
+    }
+
+    public function getIroningId(): string
+    {
+        return $this->ironingId;
+    }
+
+    public function getCarpetCleaningId(): string
+    {
+        return $this->carpetCleaningId;
+    }
+
+    public function getSheetCleaningId(): string
+    {
+        return $this->sheetCleaningId;
     }
 }

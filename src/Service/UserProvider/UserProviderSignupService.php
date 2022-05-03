@@ -7,67 +7,67 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 use App\Entity\Location;
 use App\Entity\User;
-use App\Service\User\UserService;
+use App\Entity\UserProvider;
 use App\Service\Violation\ViolationService;
+use App\Service\User\UserSignupService;
+use App\Service\Location\LocationAddService;
 use App\DTO\UserProvider\UserProviderSignupRequestDTO;
+use App\DTO\Location\LocationAddRequestDTO;
 
 class UserProviderSignupService
 {
     private ManagerRegistry $doctrine;
 
     private ViolationService $violationService;
-    private UserService $userService;
+    private UserSignupService $userSignupService;
+    private LocationAddService $locationAddService;
 
     public function __construct(
         ManagerRegistry $doctrine,
         ViolationService $violationService,
-        UserService $userService
+        UserSignupService $userSignupService,
+        LocationAddService $locationAddService
     ) {
         $this->doctrine = $doctrine;
 
         $this->violationService = $violationService;
-        $this->userService = $userService;
+        $this->userSignupService = $userSignupService;
+        $this->locationAddService = $locationAddService;
     }
 
     public function attemptToSignupUserProvider(
         UserProviderSignupRequestDTO $userProviderSignupRequestDTO,
-        Location $location
+        LocationAddRequestDTO $locationAddRequestDTO
     ): User {
-        $user = new User();
-        $user = $this->setUserProviderSignupProperties(
-            $userProviderSignupRequestDTO,
-            $user,
-            $location
-        );
+        $user = $this->userSignupService->attemptToSignupUser($userProviderSignupRequestDTO);
+        $location = $this->locationAddService->attemptToAddLocation($locationAddRequestDTO);
 
-        if ($violation = $this->violationService->getLastViolation($user)) {
+        $userProvider = $this->setUserProviderSignupProperties($user, new UserProvider(), $location);
+
+        if ($violation = $this->violationService->getLastViolation($userProvider)) {
             throw new BadRequestHttpException($violation->getMessage());
         }
 
-        $this->signupUserProvider($user);
+        $this->signupUserProvider($userProvider);
 
         return $user;
     }
 
-    private function signupUserProvider(User $user)
+    private function signupUserProvider(UserProvider $userProvider)
     {
-        $user = $this->userService->hashUserPassword($user);
-
         $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($user);
+        $entityManager->persist($userProvider);
         $entityManager->flush();
     }
 
     private function setUserProviderSignupProperties(
-        UserProviderSignupRequestDTO $userProviderSignupRequestDTO,
         User $user,
+        UserProvider $userProvider,
         Location $location
-    ): User {
-        $user->setName($userProviderSignupRequestDTO->name);
-        $user->setEmail($userProviderSignupRequestDTO->email);
-        $user->setPassword($userProviderSignupRequestDTO->password);
+    ): UserProvider {
+        $userProvider->setUser($user);
         $user->setLocation($location);
 
-        return $user;
+        return $userProvider;
     }
 }

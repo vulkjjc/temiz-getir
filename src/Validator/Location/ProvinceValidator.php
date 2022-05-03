@@ -31,7 +31,7 @@ class ProvinceValidator extends ConstraintValidator
         if (
             !is_numeric($value)
             || empty($province = $this->provinceRepository->find($value))
-            || $province->getCity()->getId() != $this->context->getRoot()->cityId
+            || $province->getCity()->getId() != $this->context->getRoot()->getCityId()
         ) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter("{{ string }}", $province->getName())
