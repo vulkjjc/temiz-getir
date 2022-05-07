@@ -64,6 +64,7 @@ class LocationAddService
         $location->setCountry($this->countryRepository->find($locationAddRequestDTO->getCountryId()));
         $location->setCity($this->cityRepository->find($locationAddRequestDTO->getCityId()));
         $location->setProvince($this->provinceRepository->find($locationAddRequestDTO->getProvinceId()));
+        $location->setAddress($locationAddRequestDTO->getAddress());
 
         return $location;
     }

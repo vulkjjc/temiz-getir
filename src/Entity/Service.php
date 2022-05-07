@@ -30,6 +30,7 @@ class Service
     private $shoeCleaning;
 
     #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
     private $user;
 
     public function getId(): ?int

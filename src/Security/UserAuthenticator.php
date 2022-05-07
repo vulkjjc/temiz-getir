@@ -15,11 +15,11 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class ProviderAuthenticator extends AbstractLoginFormAuthenticator
+class UserAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = "login_provider";
+    public const LOGIN_ROUTE = "login";
     private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(UrlGeneratorInterface $urlGenerator)
@@ -37,7 +37,7 @@ class ProviderAuthenticator extends AbstractLoginFormAuthenticator
             new UserBadge($email),
             new PasswordCredentials($request->request->get("password", "")),
             [
-                new CsrfTokenBadge("authenticate", $request->request->get("_csrf_token", "")),
+                new CsrfTokenBadge("authenticate", $request->request->get("csrf-token", "")),
             ]
         );
     }

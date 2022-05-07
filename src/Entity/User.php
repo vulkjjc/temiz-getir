@@ -28,7 +28,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     private $password;
 
     #[ORM\OneToOne(targetEntity: Location::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private $location;
+
+    #[ORM\Column(type: "json")]
+    private $roles = [];
 
     public function getId(): ?int
     {
@@ -96,7 +100,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
      */
     public function getRoles(): array
     {
-        return ["ROLE_USER"];
+        $roles = $this->roles;
+
+        $roles[] = "ROLE_USER";
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     /**

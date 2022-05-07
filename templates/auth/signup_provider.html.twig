@@ -26,13 +26,17 @@
             <div id="city-select-cont"></div>
             <div id="province-select-cont"></div>
 
+            <input class="main-input card-input" name="address" placeholder="address" type="text" required>
             <input class="main-input card-input" name="password" type="password" placeholder="password" required>
             <input class="main-input card-input" name="password-repeat" type="password" placeholder="password repeat" required>
         </div>
 
         <div class="card-info-text-cont">
-            <a class="info-text" href="{{ path("login_choice") }}"> Already a member? </a>
+            <a class="info-text" href="{{ path("login") }}"> Already a member? </a>
         </div>
+
+        <input type="hidden" name="user-role" value="ROLE_PROVIDER">
+        <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}"/>
 
         <button class="main-button card-button" type="submit" name="submit"> Signup </button>
     </form>

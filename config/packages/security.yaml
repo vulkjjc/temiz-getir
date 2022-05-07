@@ -29,14 +29,9 @@ security:
 
             logout:
                 path: logout
-                target: home
+                target: login
 
-            form_login: ~
-
-            custom_authenticators:
-                - App\Security\CustomerAuthenticator
-                - App\Security\ProviderAuthenticator
-            entry_point: form_login
+            custom_authenticator: App\Security\UserAuthenticator
 
             # custom_authenticator: App\Security\CustomerAuthenticator
 

@@ -6,13 +6,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AuthController extends AbstractController
 {
-    #[Route("/login/choice", name: "login_choice", methods: ["GET"])]
-    public function loginChoice() : Response
+    #[Route("/login", name: "login", methods: ["GET", "POST"])]
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        return $this->render("auth/login_choice.html.twig");
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render("auth/login.html.twig", ["error" => $error, "last_username" => $lastUsername]);
     }
 
     #[Route("/signup/choice", name: "signup_choice", methods: ["GET"])]

@@ -28,10 +28,13 @@
         <a class="header-item" href="{{ path("home") }}"> Temiz Getir </a>
 
         <div class="float-right">
-            {% if app.user %}
+            {% if is_granted("ROLE_USER") %}
+                {% if is_granted("ROLE_PROVIDER") %}
+                    <a class="header-item" href=""> Services </a>
+                {% endif %}
                 <a class="header-item" href="{{ path("logout") }}"> Logout </a>
             {% else %}
-                <a class="header-item" href="{{ path("login_choice") }}"> Login </a>
+                <a class="header-item" href="{{ path("login") }}"> Login </a>
                 <a class="header-item" href="{{ path("signup_choice") }}"> Signup </a>
             {% endif %}
 

@@ -14,13 +14,19 @@ class Location
     private $id;
 
     #[ORM\ManyToOne(targetEntity: Country::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private $country;
 
     #[ORM\ManyToOne(targetEntity: City::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private $city;
 
     #[ORM\ManyToOne(targetEntity: Province::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private $provice;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $address;
 
     public function getId(): ?int
     {
@@ -59,6 +65,18 @@ class Location
     public function setProvince(?Province $provice): self
     {
         $this->provice = $provice;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
 
         return $this;
     }
