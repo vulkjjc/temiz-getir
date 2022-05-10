@@ -19,10 +19,8 @@ class AuthController extends AbstractController
 
     private EmailVerifyService $emailVerifyService;
 
-    public function __construct(
-        ManagerRegistry $doctrine,
-        EmailVerifyService $emailVerifyService
-    ) {
+    public function __construct(ManagerRegistry $doctrine, EmailVerifyService $emailVerifyService) 
+    {
         $this->doctrine = $doctrine;
 
         $this->emailVerifyService = $emailVerifyService;
@@ -44,7 +42,7 @@ class AuthController extends AbstractController
     }
 
     #[Route("/email/verify", name: "email_verify", methods: ["GET"])]
-    public function emailVerify(EmailVerifyRequestDTO $emailVerifyRequestDTO) : Response
+    public function emailVerify(EmailVerifyRequestDTO $emailVerifyRequestDTO): Response
     {
         try {
             $this->emailVerifyService->verifyEmail($emailVerifyRequestDTO);
@@ -56,7 +54,7 @@ class AuthController extends AbstractController
     }
 
     #[Route("/password/reset", name: "password_reset", methods: ["GET"])]
-    public function passwordReset() : Response
+    public function passwordReset(): Response
     {
         return $this->render("auth/password_reset.html.twig");
     }

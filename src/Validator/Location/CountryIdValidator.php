@@ -8,13 +8,12 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 use App\Repository\CountryRepository;
-use App\Repository\CityRepository;
 
 class CountryIdValidator extends ConstraintValidator
 {
     private CountryRepository $countryRepository;
 
-    public function __construct(CountryRepository $countryRepository, CityRepository $cityRepository)
+    public function __construct(CountryRepository $countryRepository)
     {
         $this->countryRepository = $countryRepository;
     }

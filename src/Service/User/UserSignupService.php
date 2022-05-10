@@ -5,11 +5,11 @@ namespace App\Service\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 use App\Entity\User;
 use App\Entity\Location;
 use App\Service\Violation\ViolationService;
-use App\Service\User\UserService;
 use App\Service\Location\LocationAddService;
 use App\Service\Email\EmailSendVerificationService;
 use App\Interface\DTO\User\UserSignupRequestDTOInterface;
@@ -18,23 +18,23 @@ use App\DTO\Location\LocationAddRequestDTO;
 class UserSignupService
 {
     private ManagerRegistry $doctrine;
+    private UserPasswordHasherInterface $passwordHasher;
 
     private ViolationService $violationService;
-    private UserService $userService;
     private LocationAddService $locationAddService;
     private EmailSendVerificationService $emailSendVerificationService;
 
     public function __construct(
         ManagerRegistry $doctrine,
+        UserPasswordHasherInterface $passwordHasher,
         ViolationService $violationService,
-        UserService $userService,
         LocationAddService $locationAddService,
         EmailSendVerificationService $emailSendVerificationService
     ) {
         $this->doctrine = $doctrine;
+        $this->passwordHasher = $passwordHasher;
 
         $this->violationService = $violationService;
-        $this->userService = $userService;
         $this->locationAddService = $locationAddService;
         $this->emailSendVerificationService = $emailSendVerificationService;
     }
@@ -61,8 +61,6 @@ class UserSignupService
 
     private function signupUser(User $user)
     {
-        $user = $this->userService->hashUserPassword($user);
-
         $entityManager = $this->doctrine->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
@@ -75,7 +73,12 @@ class UserSignupService
     ): User {
         $user->setName($userSignupRequestDTO->getName());
         $user->setEmail($userSignupRequestDTO->getEmail());
-        $user->setPassword($userSignupRequestDTO->getPassword());
+        $user->setPassword(
+            $this->passwordHasher->hashPassword(
+                $user,
+                $userSignupRequestDTO->getPassword()
+            )
+        );
         $user->setRoles([$userSignupRequestDTO->getUserRole()]);
         $user->setLocation($location);
 

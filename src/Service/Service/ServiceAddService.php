@@ -15,10 +15,8 @@ class ServiceAddService
 
     private ViolationService $violationService;
 
-    public function __construct(
-        ManagerRegistry $doctrine,
-        ViolationService $violationService,
-    ) {
+    public function __construct(ManagerRegistry $doctrine, ViolationService $violationService) 
+    {
         $this->doctrine = $doctrine;
 
         $this->violationService = $violationService;

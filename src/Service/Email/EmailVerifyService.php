@@ -12,17 +12,18 @@ use App\DTO\Email\EmailVerifyRequestDTO;
 class EmailVerifyService
 {
     private ManagerRegistry $doctrine;
-    private UserRepository $userRepository;
     private VerifyEmailHelperInterface $verifyEmailHelper;
+    private UserRepository $userRepository;
 
     public function __construct(
         ManagerRegistry $doctrine,
-        UserRepository $userRepository,
-        VerifyEmailHelperInterface $verifyEmailHelper
+        VerifyEmailHelperInterface $verifyEmailHelper,
+        UserRepository $userRepository
     ) {
         $this->doctrine = $doctrine;
-        $this->userRepository = $userRepository;
         $this->verifyEmailHelper = $verifyEmailHelper;
+        
+        $this->userRepository = $userRepository;
     }
 
     public function verifyEmail(EmailVerifyRequestDTO $emailVerifyRequestDTO)

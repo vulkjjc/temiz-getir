@@ -28,10 +28,7 @@ class UserIdValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, "string");
         }
 
-        if (
-            !is_numeric($value)
-            || empty($this->userRepository->find($value))
-        ) {
+        if (!is_numeric($value) || empty($this->userRepository->find($value))) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter("{{ string }}", $value)
                 ->addViolation();

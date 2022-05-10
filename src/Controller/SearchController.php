@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SearchController extends AbstractController
 {
     #[Route("/search/services", name: "search_services", methods: ["GET"])]
-    public function searchServices() : Response
+    public function searchServices(): Response
     {
         return $this->render("search/services.html.twig");
     }

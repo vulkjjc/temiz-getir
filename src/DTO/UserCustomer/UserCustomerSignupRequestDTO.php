@@ -11,7 +11,7 @@ use App\Validator\Token as TokenAssert;
 
 class UserCustomerSignupRequestDTO implements RequestDTOInterface, UserSignupRequestDTOInterface
 {
-    #[Assert\Regex(pattern: "/^[a-zA-Z0-9_]{1,25}$/", message: "Username is invalid.")]
+    #[Assert\Regex(pattern: "/^[a-zA-Z0-9_ ]{1,25}$/", message: "Name is invalid.")]
     private string $name;
 
     #[Assert\Email(message: "Email is invalid.")]

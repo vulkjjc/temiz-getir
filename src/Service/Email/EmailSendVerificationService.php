@@ -14,10 +14,8 @@ class EmailSendVerificationService
     private VerifyEmailHelperInterface $verifyEmailHelper;
     private MailerInterface $mailer;
 
-    public function __construct(
-        VerifyEmailHelperInterface $verifyEmailHelper,
-        MailerInterface $mailer,
-    ) {
+    public function __construct(VerifyEmailHelperInterface $verifyEmailHelper, MailerInterface $mailer) 
+    {
         $this->verifyEmailHelper = $verifyEmailHelper;
         $this->mailer = $mailer;
     }

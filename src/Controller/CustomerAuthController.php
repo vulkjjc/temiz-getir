@@ -17,10 +17,8 @@ class CustomerAuthController extends AbstractController
     private CountryRepository $countryRepository;
     private UserSignupService $userSignupService;
 
-    public function __construct(
-        CountryRepository $countryRepository,
-        UserSignupService $userSignupService
-    ) {
+    public function __construct(CountryRepository $countryRepository, UserSignupService $userSignupService) 
+    {
         $this->countryRepository = $countryRepository;
         $this->userSignupService = $userSignupService;
     }

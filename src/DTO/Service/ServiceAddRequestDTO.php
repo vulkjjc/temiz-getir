@@ -9,7 +9,7 @@ use App\Validator\Service as ServiceAssert;
 
 class ServiceAddRequestDTO implements RequestDTOInterface
 {
-    #[Assert\Regex(pattern: "/^[a-zA-Z0-9_]{1,25}$/", message: "Username is invalid.")]
+    #[Assert\Regex(pattern: "/^[a-zA-Z0-9_ ]{1,25}$/", message: "Name is invalid.")]
     private string $name;
 
     #[ServiceAssert\DryCleaningId]

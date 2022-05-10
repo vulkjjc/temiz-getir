@@ -28,10 +28,7 @@ class IroningIdValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, "string");
         }
 
-        if (
-            !is_numeric($value)
-            || empty($this->ironingRepository->find($value))
-        ) {
+        if (!is_numeric($value) || empty($this->ironingRepository->find($value))) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter("{{ string }}", "Ironing")
                 ->addViolation();

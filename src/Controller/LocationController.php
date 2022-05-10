@@ -22,7 +22,7 @@ class LocationController extends AbstractController
     }
 
     #[Route("/cities/get/{id}", name: "get_cities", requirements: ["id" => "\d+"], methods: ["POST"])]
-    public function getCities(Request $request, string $id) : JsonResponse
+    public function getCities(Request $request, string $id): JsonResponse
     {
         $cities = $this->cityRepository->findCitiesAsArray($id);
 
@@ -30,7 +30,7 @@ class LocationController extends AbstractController
     }
 
     #[Route("/provinces/get/{id}", name: "get_provinces", requirements: ["id" => "\d+"], methods: ["POST"])]
-    public function getProvinces(Request $request, string $id) : JsonResponse
+    public function getProvinces(Request $request, string $id): JsonResponse
     {
         $provinces = $this->provinceRepository->findProvincesAsArray($id);
 

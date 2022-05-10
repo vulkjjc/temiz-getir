@@ -17,16 +17,14 @@ class ProviderAuthController extends AbstractController
     private CountryRepository $countryRepository;
     private UserSignupService $userSignupService;
 
-    public function __construct(
-        CountryRepository $countryRepository,
-        UserSignupService $userSignupService
-    ) {
+    public function __construct(CountryRepository $countryRepository, UserSignupService $userSignupService) 
+    {
         $this->countryRepository = $countryRepository;
         $this->userSignupService = $userSignupService;
     }
 
     #[Route("/signup/provider", name: "signup_provider", methods: ["GET"])]
-    public function signupProvider() : Response
+    public function signupProvider(): Response
     {
         $countries = $this->countryRepository->findAll();
 
