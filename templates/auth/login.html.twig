@@ -7,7 +7,9 @@
         <div class="main-title card-title"> Login </div>
 
         {% if error.message is defined %}
-            <div class="main-error card-error"> {{ error.message }} </div>
+            <div class="main-error card-message"> {{ error.message }} </div>
+        {% elseif app.request.get("success") %}
+            <div class="main-success card-message"> {{ app.request.get("success") }} </div>
         {% endif %}
 
         <div class="card-cont block-middle">
@@ -19,7 +21,7 @@
             <a class="info-text" href="{{ path("password_reset") }}"> Forgot password? </a>
         </div>
 
-        <input type="hidden" name="csrf-token" value="{{ csrf_token("authenticate") }}">
+        <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}">
 
         <button class="main-button card-button" type="submit" name="submit"> Login </button>
     </form>

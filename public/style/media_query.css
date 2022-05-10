@@ -28,9 +28,7 @@
 }
 
 @media screen and (max-width: 50rem) {
-    .services-temp {
-        grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
-    }
+    .services-temp { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 
     .service-title { font-size: var(--font-l); }
 }

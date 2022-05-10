@@ -33,6 +33,8 @@ security:
 
             custom_authenticator: App\Security\UserAuthenticator
 
+            user_checker: App\Security\UserChecker
+
             # custom_authenticator: App\Security\CustomerAuthenticator
 
     # Easy way to control access for large sections of your site

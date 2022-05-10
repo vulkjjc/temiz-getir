@@ -15,7 +15,10 @@
         "symfony/flex": "^2",
         "symfony/form": "6.0.*",
         "symfony/framework-bundle": "6.0.*",
+        "symfony/google-mailer": "6.0.*",
         "symfony/http-client": "6.0.*",
+        "symfony/mailchimp-mailer": "6.0.*",
+        "symfony/mailer": "6.0.*",
         "symfony/proxy-manager-bridge": "6.0.*",
         "symfony/rate-limiter": "6.0.*",
         "symfony/runtime": "6.0.*",
@@ -23,7 +26,8 @@
         "symfony/security-csrf": "6.0.*",
         "symfony/twig-bundle": "6.0.*",
         "symfony/validator": "6.0.*",
-        "symfony/yaml": "6.0.*"
+        "symfony/yaml": "6.0.*",
+        "symfonycasts/verify-email-bundle": "^1.10"
     },
     "config": {
         "allow-plugins": {

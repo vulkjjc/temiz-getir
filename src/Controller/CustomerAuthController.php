@@ -36,7 +36,7 @@ class CustomerAuthController extends AbstractController
     #[Route("/signup/customer/init", name: "signup_customer_init", methods: ["POST"])]
     public function signupCustomerInit(
         UserCustomerSignupRequestDTO $userCustomerSignupRequestDTO,
-        LocationAddRequestDTO $locationAddRequestDTO
+        LocationAddRequestDTO $locationAddRequestDTO,
     ): Response {
         $this->userSignupService->attemptToSignupUser(
             $userCustomerSignupRequestDTO,

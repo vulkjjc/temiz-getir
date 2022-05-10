@@ -21,10 +21,7 @@
 
     cursor: pointer;
 }
-.header-item:hover {
-    border-color: var(--color-xl);
-    color: var(--color-xl);
-}
+.header-item:hover { color: var(--color-d); }
 
 .header-logo {
     width: 40px;

@@ -33,7 +33,9 @@ a {
 
 .main-title { font-weight: bold; }
 
-.main-error { font-weight: 100; }
+.main-error { color: var(--color-xl); }
+
+.main-success { color: var(--color-d); }
 
 .main-main { padding: 80px 60px; }
 

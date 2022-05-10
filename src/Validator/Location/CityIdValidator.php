@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 use App\Repository\CityRepository;
 
-class CityValidator extends ConstraintValidator
+class CityIdValidator extends ConstraintValidator
 {
     private CityRepository $cityRepository;
 

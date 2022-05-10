@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Validator\Location;
+namespace App\Validator\User;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
-use App\Repository\CountryRepository;
-use App\Repository\CityRepository;
+use App\Repository\UserRepository;
 
-class CountryValidator extends ConstraintValidator
+class UserIdValidator extends ConstraintValidator
 {
-    private CountryRepository $countryRepository;
+    private UserRepository $userRepository;
 
-    public function __construct(CountryRepository $countryRepository, CityRepository $cityRepository)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->countryRepository = $countryRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function validate($value, Constraint $constraint)
@@ -29,9 +28,12 @@ class CountryValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, "string");
         }
 
-        if (!is_numeric($value) || empty($country = $this->countryRepository->find($value))) {
+        if (
+            !is_numeric($value)
+            || empty($this->userRepository->find($value))
+        ) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter("{{ string }}", $country->getName())
+                ->setParameter("{{ string }}", $value)
                 ->addViolation();
         }
     }

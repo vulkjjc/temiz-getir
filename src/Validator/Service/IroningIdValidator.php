@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Validator\Location;
+namespace App\Validator\Service;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
-use App\Repository\ProvinceRepository;
+use App\Repository\IroningRepository;
 
-class ProvinceValidator extends ConstraintValidator
+class IroningIdValidator extends ConstraintValidator
 {
-    private ProvinceRepository $provinceRepository;
+    private IroningRepository $ironingRepository;
 
-    public function __construct(ProvinceRepository $provinceRepository)
+    public function __construct(IroningRepository $ironingRepository)
     {
-        $this->provinceRepository = $provinceRepository;
+        $this->ironingRepository = $ironingRepository;
     }
 
     public function validate($value, Constraint $constraint)
@@ -30,11 +30,10 @@ class ProvinceValidator extends ConstraintValidator
 
         if (
             !is_numeric($value)
-            || empty($province = $this->provinceRepository->find($value))
-            || $province->getCity()->getId() != $this->context->getRoot()->getCityId()
+            || empty($this->ironingRepository->find($value))
         ) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter("{{ string }}", $province->getName())
+                ->setParameter("{{ string }}", "Ironing")
                 ->addViolation();
         }
     }

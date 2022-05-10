@@ -29,10 +29,10 @@ services:
         tags:
             - { name: controller.request_value_resolver, priority: 50 }
 
-    App\EventSubscriber\ExceptionSubscriber:
+    App\EventSubscriber\Exception\ExceptionSubscriber:
             tags:
                 - { name: kernel.exception_subscriber, event: kernel.exception }
 
-    App\EventSubscriber\CsrfTokenRequestSubscriber:
+    App\EventSubscriber\Token\CsrfTokenRequestSubscriber:
             tags:
                 - { name: kernel.csrf_token_request_subscriber, event: kernel.request }

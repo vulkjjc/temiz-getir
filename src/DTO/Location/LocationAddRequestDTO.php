@@ -10,13 +10,13 @@ use App\Validator\Location as LocationAssert;
 
 class LocationAddRequestDTO implements RequestDTOInterface
 {
-    #[LocationAssert\Country]
+    #[LocationAssert\CountryId]
     private string $countryId;
 
-    #[LocationAssert\City]
+    #[LocationAssert\CityId]
     private string $cityId;
 
-    #[LocationAssert\Province]
+    #[LocationAssert\ProvinceId]
     private string $provinceId;
 
     #[Assert\Regex(pattern: "/^.{1,125}$/", message: "Address is invalid.")]

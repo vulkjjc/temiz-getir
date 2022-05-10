@@ -12,19 +12,19 @@ class ServiceAddRequestDTO implements RequestDTOInterface
     #[Assert\Regex(pattern: "/^[a-zA-Z0-9_]{1,25}$/", message: "Username is invalid.")]
     private string $name;
 
-    #[ServiceAssert\DryCleaning]
+    #[ServiceAssert\DryCleaningId]
     private string $dryCleaningId;
 
-    #[ServiceAssert\ShoeCleaning]
+    #[ServiceAssert\ShoeCleaningId]
     private string $shoeCleaningId;
 
-    #[ServiceAssert\Ironing]
+    #[ServiceAssert\IroningId]
     private string $ironingId;
 
-    #[ServiceAssert\CarpetCleaning]
+    #[ServiceAssert\CarpetCleaningId]
     private string $carpetCleaningId;
 
-    #[ServiceAssert\SheetCleaning]
+    #[ServiceAssert\SheetCleaningId]
     private string $sheetCleaningId;
 
     public function __construct(Request $request) {
