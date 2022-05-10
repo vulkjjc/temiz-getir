@@ -11,8 +11,6 @@ class SettingsController extends AbstractController
     #[Route("/settings", name: "settings", methods: ["GET"])]
     public function index(): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
-
         return $this->render("settings/index.html.twig");
     }
 }

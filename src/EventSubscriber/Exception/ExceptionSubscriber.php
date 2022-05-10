@@ -5,7 +5,6 @@ namespace App\EventSubscriber\Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\HttpFoundation\Response;
 
 class ExceptionSubscriber implements EventSubscriberInterface
@@ -20,15 +19,11 @@ class ExceptionSubscriber implements EventSubscriberInterface
     public function checkException(ExceptionEvent $event)
     {
         $exception = $event->getThrowable();
-        if (
-            !$exception instanceof BadRequestHttpException
-            && !$exception instanceof InvalidCsrfTokenException
-        ) {
+        if (!$exception instanceof BadRequestHttpException) {
             return null;
         }
 
-        $message = $exception->getMessage();
-        if (!$message) {
+        if (!$message = $exception->getMessage()) {
             return null;
         }
 

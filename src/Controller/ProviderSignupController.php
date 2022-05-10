@@ -5,14 +5,13 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 use App\Repository\CountryRepository;
 use App\Service\User\UserSignupService;
 use App\DTO\UserProvider\UserProviderSignupRequestDTO;
 use App\DTO\Location\LocationAddRequestDTO;
 
-class ProviderAuthController extends AbstractController
+class ProviderSignupController extends AbstractController
 {
     private CountryRepository $countryRepository;
     private UserSignupService $userSignupService;
