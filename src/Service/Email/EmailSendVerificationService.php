@@ -20,15 +20,19 @@ class EmailSendVerificationService
         $this->mailer = $mailer;
     }
 
-    public function sendEmailVerification(User $user)
+    public function sendEmailVerification(User $user, string $route)
     {
-        $this->mailer->send($this->getEmail($this->getEmailVerificationSignature($user)));
+        $this->mailer->send(
+            $this->getEmail(
+                $this->getEmailVerificationSignature($user, $route)
+            )
+        );
     }
 
-    private function getEmailVerificationSignature(User $user): VerifyEmailSignatureComponents
+    private function getEmailVerificationSignature(User $user, string $route): VerifyEmailSignatureComponents
     {
         return $this->verifyEmailHelper->generateSignature(
-            "email_verify",
+            $route,
             $user->getId(),
             $user->getEmail(),
             ["user-id" => $user->getId()]

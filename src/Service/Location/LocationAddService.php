@@ -5,6 +5,7 @@ namespace App\Service\Location;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
+use App\Repository\LocationRepository;
 use App\Repository\CountryRepository;
 use App\Repository\CityRepository;
 use App\Repository\ProvinceRepository;
@@ -16,6 +17,7 @@ class LocationAddService
 {
     private ManagerRegistry $doctrine;
 
+    private LocationRepository $locationRepository;
     private CountryRepository $countryRepository;
     private CityRepository $cityRepository;
     private ProvinceRepository $provinceRepository;
@@ -23,6 +25,7 @@ class LocationAddService
 
     public function __construct(
         ManagerRegistry $doctrine,
+        LocationRepository $locationRepository,
         CountryRepository $countryRepository,
         CityRepository $cityRepository,
         ProvinceRepository $provinceRepository,
@@ -30,6 +33,7 @@ class LocationAddService
     ) {
         $this->doctrine = $doctrine;
 
+        $this->locationRepository = $locationRepository;
         $this->countryRepository = $countryRepository;
         $this->cityRepository = $cityRepository;
         $this->provinceRepository = $provinceRepository;
@@ -45,16 +49,9 @@ class LocationAddService
             throw new BadRequestHttpException($violation->getMessage());
         }
 
-        $this->addLocation($location);
+        $this->locationRepository->add($location, true);
 
         return $location;
-    }
-
-    private function addLocation(Location $location)
-    {
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($location);
-        $entityManager->flush();
     }
 
     private function setLocationAddProperties(

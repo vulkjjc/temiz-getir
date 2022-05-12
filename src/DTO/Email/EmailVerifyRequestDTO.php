@@ -16,7 +16,8 @@ class EmailVerifyRequestDTO implements RequestDTOInterface
     #[Assert\Url(message: "URL is invalid.")]
     private string $requestUri;
 
-    public function __construct(Request $request) {
+    public function __construct(Request $request) 
+    {
         $this->userId = $request->query->get("user-id");
         $this->requestUri = $request->getUri();
     }

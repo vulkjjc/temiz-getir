@@ -27,7 +27,8 @@ class UserProviderSignupRequestDTO implements RequestDTOInterface, UserSignupReq
     #[Assert\Regex(pattern: "/^ROLE_PROVIDER$/", message: "User role is invalid.")]
     private string $userRole;
 
-    public function __construct(Request $request) {
+    public function __construct(Request $request) 
+    {
         $this->name = $request->request->get("name");
         $this->email = $request->request->get("email");
         $this->password = $request->request->get("password");

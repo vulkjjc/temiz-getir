@@ -2,13 +2,13 @@
 
 namespace App\Service\User;
 
-use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 use App\Entity\User;
 use App\Entity\Location;
+use App\Repository\UserRepository;
 use App\Service\Violation\ViolationService;
 use App\Service\Location\LocationAddService;
 use App\Service\Email\EmailSendVerificationService;
@@ -20,6 +20,7 @@ class UserSignupService
     private ManagerRegistry $doctrine;
     private UserPasswordHasherInterface $passwordHasher;
 
+    private UserRepository $userRepository;
     private ViolationService $violationService;
     private LocationAddService $locationAddService;
     private EmailSendVerificationService $emailSendVerificationService;
@@ -27,6 +28,7 @@ class UserSignupService
     public function __construct(
         ManagerRegistry $doctrine,
         UserPasswordHasherInterface $passwordHasher,
+        UserRepository $userRepository,
         ViolationService $violationService,
         LocationAddService $locationAddService,
         EmailSendVerificationService $emailSendVerificationService
@@ -34,6 +36,7 @@ class UserSignupService
         $this->doctrine = $doctrine;
         $this->passwordHasher = $passwordHasher;
 
+        $this->userRepository = $userRepository;
         $this->violationService = $violationService;
         $this->locationAddService = $locationAddService;
         $this->emailSendVerificationService = $emailSendVerificationService;
@@ -43,7 +46,7 @@ class UserSignupService
         UserSignupRequestDTOInterface $userSignupRequestDTO,
         LocationAddRequestDTO $locationAddRequestDTO
     ): User {
-        $user = $this->setUserSignupProperties(
+        $user = $this->setUserProperties(
             $userSignupRequestDTO,
             new User(),
             $this->locationAddService->attemptToAddLocation($locationAddRequestDTO)
@@ -53,20 +56,14 @@ class UserSignupService
             throw new BadRequestHttpException($violation->getMessage());
         }
 
-        $this->signupUser($user);
-        $this->emailSendVerificationService->sendEmailVerification($user);
+        $this->userRepository->add($user, true);
+
+        $this->emailSendVerificationService->sendEmailVerification($user, "user_verify");
 
         return $user;
     }
 
-    private function signupUser(User $user)
-    {
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
-    }
-
-    private function setUserSignupProperties(
+    private function setUserProperties(
         UserSignupRequestDTOInterface $userSignupRequestDTO,
         User $user,
         Location $location

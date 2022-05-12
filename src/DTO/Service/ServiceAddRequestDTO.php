@@ -27,7 +27,8 @@ class ServiceAddRequestDTO implements RequestDTOInterface
     #[ServiceAssert\SheetCleaningId]
     private string $sheetCleaningId;
 
-    public function __construct(Request $request) {
+    public function __construct(Request $request) 
+    {
         $this->dryCleaningId = $request->request->get("dry-cleaning-id");
         $this->shoeCleaningId = $request->request->get("shoe-cleaning-id");
         $this->ironingId = $request->request->get("ironing-id");

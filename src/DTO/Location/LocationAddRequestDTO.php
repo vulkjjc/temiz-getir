@@ -22,7 +22,8 @@ class LocationAddRequestDTO implements RequestDTOInterface
     #[Assert\Regex(pattern: "/^.{1,125}$/", message: "Address is invalid.")]
     private string $address;
 
-    public function __construct(Request $request) {
+    public function __construct(Request $request) 
+    {
         $this->countryId = $request->request->get("country-id");
         $this->cityId = $request->request->get("city-id");
         $this->provinceId = $request->request->get("province-id");

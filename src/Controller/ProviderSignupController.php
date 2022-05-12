@@ -40,6 +40,6 @@ class ProviderSignupController extends AbstractController
             $locationAddRequestDTO
         );
 
-        return $this->redirect($this->generateUrl("login"));
+        return $this->redirect($this->generateUrl("login", ["success" => "Email verification sent successfully."]));
     }
 }
