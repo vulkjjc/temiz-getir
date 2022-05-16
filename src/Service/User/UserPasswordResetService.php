@@ -2,8 +2,6 @@
 
 namespace App\Service\User;
 
-use Doctrine\Persistence\ManagerRegistry;
-
 use App\Entity\User;
 use App\Entity\UserPasswordReset;
 use App\Repository\UserPasswordResetRepository;
@@ -13,18 +11,13 @@ use App\DTO\Email\EmailVerifyRequestDTO;
 
 class UserPasswordResetService
 {
-    private ManagerRegistry $doctrine;
-
     private UserPasswordResetRepository $userPasswordResetRepository;
     private EmailVerifyService $emailVerifyService;
 
     public function __construct(
-        ManagerRegistry $doctrine, 
         UserPasswordResetRepository $userPasswordResetRepository,
         EmailVerifyService $emailVerifyService
     ) {
-        $this->doctrine = $doctrine;
-
         $this->userPasswordResetRepository = $userPasswordResetRepository;
         $this->emailVerifyService = $emailVerifyService;
     }

@@ -2,7 +2,6 @@
 
 namespace App\Service\User;
 
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -15,7 +14,6 @@ use App\DTO\User\UserSendPasswordResetRequestDTO;
 
 class UserSendPasswordResetService
 {
-    private ManagerRegistry $doctrine;
     private UserPasswordHasherInterface $passwordHasher;
 
     private EmailSendVerificationService $emailSendVerificationService;
@@ -23,13 +21,11 @@ class UserSendPasswordResetService
     private UserPasswordResetRepository $userPasswordResetRepository;
 
     public function __construct(
-        ManagerRegistry $doctrine, 
         UserPasswordHasherInterface $passwordHasher,
         EmailSendVerificationService $emailSendVerificationService,
         UserRepository $userRepository,
         UserPasswordResetRepository $userPasswordResetRepository
     ) {
-        $this->doctrine = $doctrine;
         $this->passwordHasher = $passwordHasher;
 
         $this->emailSendVerificationService = $emailSendVerificationService;

@@ -11,6 +11,7 @@ use App\DTO\Email\EmailVerifyRequestDTO;
 class EmailVerifyService
 {
     private VerifyEmailHelperInterface $verifyEmailHelper;
+    
     private UserRepository $userRepository;
 
     public function __construct(

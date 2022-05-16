@@ -2,8 +2,6 @@
 
 namespace App\Service\User;
 
-use Doctrine\Persistence\ManagerRegistry;
-
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\Email\EmailVerifyService;
@@ -11,16 +9,11 @@ use App\DTO\Email\EmailVerifyRequestDTO;
 
 class UserVerifyService
 {
-    private ManagerRegistry $doctrine;
     private EmailVerifyService $emailVerifyService;
     private UserRepository $userRepository;
 
-    public function __construct(
-        ManagerRegistry $doctrine,
-        EmailVerifyService $emailVerifyService,
-        UserRepository $userRepository
-    ) {
-        $this->doctrine = $doctrine;
+    public function __construct(EmailVerifyService $emailVerifyService, UserRepository $userRepository) 
+    {
         $this->emailVerifyService = $emailVerifyService;
         
         $this->userRepository = $userRepository;

@@ -2,7 +2,6 @@
 
 namespace App\Service\Service;
 
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 use App\Repository\ServiceRepository;
@@ -12,18 +11,11 @@ use App\Entity\Service;
 
 class ServiceAddService
 {
-    private ManagerRegistry $doctrine;
-
     private ServiceRepository $serviceRepository;
     private ViolationService $violationService;
 
-    public function __construct(
-        ManagerRegistry $doctrine, 
-        ServiceRepository $serviceRepository, 
-        ViolationService $violationService
-    ) {
-        $this->doctrine = $doctrine;
-
+    public function __construct(ServiceRepository $serviceRepository, ViolationService $violationService) 
+    {
         $this->serviceRepository = $serviceRepository;
         $this->violationService = $violationService;
     }

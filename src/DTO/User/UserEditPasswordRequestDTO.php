@@ -4,15 +4,15 @@ namespace App\DTO\User;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 use App\Interface\DTO\RequestDTOInterface;
-use App\Validator\User as UserAssert;
 
-class UserSendPasswordResetRequestDTO implements RequestDTOInterface
+class UserEditPasswordRequestDTO implements RequestDTOInterface
 {
-    #[UserAssert\UserEmail]
-    #[UserAssert\UserVerifiedByEmail]
-    private string $email;
+    #[Assert\Length(min: "8", minMessage: "Password should be at least 8 characters.")]
+    #[SecurityAssert\UserPassword(message: "Invalid old password.")]
+    private string $passwordOld;
 
     #[Assert\Length(min: "8", minMessage: "Password should be at least 8 characters.")]
     #[Assert\NotCompromisedPassword(message: "This password has been leaked. Please use another password.")]
@@ -23,14 +23,16 @@ class UserSendPasswordResetRequestDTO implements RequestDTOInterface
 
     public function __construct(Request $request)
     {
-        $this->email = $request->request->get("email");
-        $this->passwordNew = $request->request->get("password-new");
-        $this->passwordNewRepeat = $request->request->get("password-new-repeat");
+        $data = json_decode($request->getContent(), true);
+        
+        $this->passwordOld = $data["password-old"];
+        $this->passwordNew = $data["password-new"];
+        $this->passwordNewRepeat = $data["password-new-repeat"];
     }
 
-    public function getEmail(): string
+    public function getPasswordOld(): string
     {
-        return $this->email;
+        return $this->passwordOld;
     }
 
     public function getPasswordNew(): string

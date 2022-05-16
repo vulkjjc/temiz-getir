@@ -24,8 +24,8 @@ class SignupController extends AbstractController
         return $this->render("auth/signup_choice.html.twig");
     }
 
-    #[Route("/user/verify", name: "user_verify", methods: ["GET"])]
-    public function userVerify(EmailVerifyRequestDTO $emailVerifyRequestDTO): Response
+    #[Route("/signup/verify", name: "signup_verify", methods: ["GET"])]
+    public function signupVerify(EmailVerifyRequestDTO $emailVerifyRequestDTO): Response
     {
         $this->userVerifyService->attemptToVerifyUser($emailVerifyRequestDTO);
 

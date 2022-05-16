@@ -1,5 +1,78 @@
 {% extends "main.html.twig" %}
 
 {% block body %}
+    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+        <form id="user_edit_info_form" class="main-box settings-box block-middle" action="{{ path("user_edit_info") }}" method="POST">
+            <div class="main-title settings-text settings-title"> User Information </div>
+            
+            <div id="user_edit_info_error"></div>
 
+            <div class="main-section settings-section settings-menu">
+                <div class="settings-menu-item">
+                    <div class="main-title"> Username </div>
+                    <input class="main-input settings-input" name="name" value="{{ app.user.name }}" pattern="^[a-zA-Z0-9_ ]{1,25}$" required>
+                </div>
+                <div class="settings-menu-item">
+                    <div class="main-title"> Email </div>
+                    <input class="main-input settings-input" name="email" value="{{ app.user.email }}" type="email" required>
+                </div>
+            </div>
+
+            <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}">
+
+            <button class="main-button block-right" type="submit" name="submit"> Save Changes </button>
+        </form>
+
+        <form id="user_edit_password_form" class="main-box settings-box block-middle" action="{{ path("user_edit_password") }}" method="POST">
+            <div class="main-title settings-text settings-title"> Password </div>
+           
+            <div id="user_edit_password_error"></div>
+
+            <div class="main-section settings-section settings-menu">
+                <div class="settings-menu-item">
+                    <div class="main-title"> Old Password </div>
+                    <input class="main-input settings-input" name="password-old" type="password">
+                </div>
+                <div class="settings-menu-item">
+                    <div class="main-title"> New Password </div>
+                    <input class="main-input settings-input" name="password-new" type="password">
+                </div>
+                <div class="settings-menu-item">
+                    <div class="main-title"> New Password (Repeat) </div>
+                    <input class="main-input settings-input" name="password-new-repeat" type="password">
+                </div>
+            </div>
+
+            <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}">
+            
+            <button class="main-button block-right" type="submit" name="submit"> Save Changes </button>
+        </form>
+
+        <form id="user_delete_form" class="main-box settings-box block-middle" action="{{ path("user_delete") }}" method="POST">
+            <div class="main-title settings-text settings-title"> Delete Account </div>
+            
+            <div id="user_delete_error"></div>
+            
+            <div class="settings-text">
+                This action will delete your account, posts, comments, likes, votes
+                and all other actions made by you, irreversably. Press the button bellow
+                to send a verification to your email for deleting your account.
+            </div>
+
+            <div class="main-section settings-section settings-menu">
+                <div class="settings-menu-item">
+                    <div class="main-title"> Password </div>
+                    <input class="main-input settings-input" name="password" type="password" required>
+                </div>
+                <div class="settings-menu-item">
+                    <div class="main-title"> Password (Repeat) </div>
+                    <input class="main-input settings-input" name="password-repeat" type="password" required>
+                </div>
+            </div>
+
+            <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}">
+            
+            <button class="main-button block-right" type="submit" name="submit"> Delete Account </button>
+        </div>
+    {% endif %}
 {% endblock %}

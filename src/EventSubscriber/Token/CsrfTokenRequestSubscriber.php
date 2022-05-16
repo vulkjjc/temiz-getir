@@ -26,10 +26,20 @@ class CsrfTokenRequestSubscriber implements EventSubscriberInterface
 
     public function checkEvent(RequestEvent $event)
     {
+        if ($event->getRequest()->getMethod() === "GET") {
+            return;
+        }
+
         $value = $event->getRequest()->request->get("csrf-token");
 
-        if (null === $value || "" === $value) {
-            return;
+        if (empty($value)) {
+            $data = json_decode($event->getRequest()->getContent(), true);
+    
+            if (empty($data["csrf-token"])) {
+                throw new InvalidCsrfTokenException("Invalid CSRF token.");
+            }
+    
+            $value = $data["csrf-token"];
         }
 
         if (!is_string($value)) {

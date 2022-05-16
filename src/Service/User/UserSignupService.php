@@ -2,7 +2,6 @@
 
 namespace App\Service\User;
 
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -17,7 +16,6 @@ use App\DTO\Location\LocationAddRequestDTO;
 
 class UserSignupService
 {
-    private ManagerRegistry $doctrine;
     private UserPasswordHasherInterface $passwordHasher;
 
     private UserRepository $userRepository;
@@ -26,14 +24,12 @@ class UserSignupService
     private EmailSendVerificationService $emailSendVerificationService;
 
     public function __construct(
-        ManagerRegistry $doctrine,
         UserPasswordHasherInterface $passwordHasher,
         UserRepository $userRepository,
         ViolationService $violationService,
         LocationAddService $locationAddService,
         EmailSendVerificationService $emailSendVerificationService
     ) {
-        $this->doctrine = $doctrine;
         $this->passwordHasher = $passwordHasher;
 
         $this->userRepository = $userRepository;
@@ -58,7 +54,7 @@ class UserSignupService
 
         $this->userRepository->add($user, true);
 
-        $this->emailSendVerificationService->sendEmailVerification($user, "user_verify");
+        $this->emailSendVerificationService->sendEmailVerification($user, "signup_verify");
 
         return $user;
     }

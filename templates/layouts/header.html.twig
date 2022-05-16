@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/style/root.css">
     <link rel="stylesheet" href="/style/main.css">
     <link rel="stylesheet" href="/style/service.css">
+    <link rel="stylesheet" href="/style/settings.css">
     <link rel="stylesheet" href="/style/card.css">
     <link rel="stylesheet" href="/style/info.css">
     <link rel="stylesheet" href="/style/page.css">
@@ -28,7 +29,7 @@
         <a class="header-item" href="{{ path("home") }}"> Temiz Getir </a>
 
         <div class="float-right">
-            {% if is_granted("ROLE_USER") %}
+            {% if is_granted("IS_AUTHENTICATED_FULLY") %}
                 {% if is_granted("ROLE_PROVIDER") %}
                     <a class="header-item" href=""> Services </a>
                 {% endif %}
