@@ -1,9 +1,0 @@
-.info-text {
-    display: inline-block;
-
-    padding-right: var(--space-s);
-}
-.info-text:not(:last-child) {
-    border-right-width: 1px;
-    border-right-style: solid;
-}
