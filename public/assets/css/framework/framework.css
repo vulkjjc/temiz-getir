@@ -628,7 +628,7 @@ input[type=radio] + label:before {
 .logo {
   font-family: Rubik;
   font-size: 24px;
-  color: #0d0d0d;
+  color: #0dcaf0;
   font-weight: 700;
 }
 .logo.color-white {
