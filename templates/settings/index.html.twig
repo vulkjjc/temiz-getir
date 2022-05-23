@@ -1,78 +1,101 @@
 {% extends "main.html.twig" %}
 
 {% block body %}
-    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
-        <form id="user_edit_info_form" class="main-box settings-box block-middle" action="{{ path("user_edit_info") }}" method="POST">
-            <div class="main-title settings-text settings-title"> User Information </div>
-            
-            <div id="user_edit_info_error"></div>
 
-            <div class="main-section settings-section settings-menu">
-                <div class="settings-menu-item">
-                    <div class="main-title"> Username </div>
-                    <input class="main-input settings-input" name="name" value="{{ app.user.name }}" pattern="^[a-zA-Z0-9_ ]{1,25}$" required>
-                </div>
-                <div class="settings-menu-item">
-                    <div class="main-title"> Email </div>
-                    <input class="main-input settings-input" name="email" value="{{ app.user.email }}" type="email" required>
-                </div>
-            </div>
 
-            <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}">
+{% if is_granted("IS_AUTHENTICATED_FULLY") %}
+    <div class="card mw-900 mx-auto mt-40 radius10">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="user-info-tab" data-bs-toggle="tab" href="#user-info" role="tab" aria-controls="user-info" aria-selected="true">Kullanıcı Bilgisi</a>
+                </li>
 
-            <button class="main-button block-right" type="submit" name="submit"> Save Changes </button>
-        </form>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="password-tab" data-bs-toggle="tab" href="#password" role="tab" aria-controls="password" aria-selected="false">Şifre</a>
+                </li>
 
-        <form id="user_edit_password_form" class="main-box settings-box block-middle" action="{{ path("user_edit_password") }}" method="POST">
-            <div class="main-title settings-text settings-title"> Password </div>
-           
-            <div id="user_edit_password_error"></div>
-
-            <div class="main-section settings-section settings-menu">
-                <div class="settings-menu-item">
-                    <div class="main-title"> Old Password </div>
-                    <input class="main-input settings-input" name="password-old" type="password">
-                </div>
-                <div class="settings-menu-item">
-                    <div class="main-title"> New Password </div>
-                    <input class="main-input settings-input" name="password-new" type="password">
-                </div>
-                <div class="settings-menu-item">
-                    <div class="main-title"> New Password (Repeat) </div>
-                    <input class="main-input settings-input" name="password-new-repeat" type="password">
-                </div>
-            </div>
-
-            <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}">
-            
-            <button class="main-button block-right" type="submit" name="submit"> Save Changes </button>
-        </form>
-
-        <form id="user_delete_form" class="main-box settings-box block-middle" action="{{ path("user_delete") }}" method="POST">
-            <div class="main-title settings-text settings-title"> Delete Account </div>
-            
-            <div id="user_delete_error"></div>
-            
-            <div class="settings-text">
-                This action will delete your account, posts, comments, likes, votes
-                and all other actions made by you, irreversably. Press the button bellow
-                to send a verification to your email for deleting your account.
-            </div>
-
-            <div class="main-section settings-section settings-menu">
-                <div class="settings-menu-item">
-                    <div class="main-title"> Password </div>
-                    <input class="main-input settings-input" name="password" type="password" required>
-                </div>
-                <div class="settings-menu-item">
-                    <div class="main-title"> Password (Repeat) </div>
-                    <input class="main-input settings-input" name="password-repeat" type="password" required>
-                </div>
-            </div>
-
-            <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}">
-            
-            <button class="main-button block-right" type="submit" name="submit"> Delete Account </button>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="account-tab" data-bs-toggle="tab" href="#account" role="tab" aria-controls="account" aria-selected="false">Hesap</a>
+                </li>
+            </ul>
         </div>
-    {% endif %}
+
+        <div class="card-body">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="user-info" role="tabpanel" aria-labelledby="user-info-tab">
+
+                    <form id="user_edit_info_form" class="bg-light mx-auto mw-430 radius10 pt-40 px-50 pb-30" action="{{ path("user_edit_info") }}" method="POST">
+                        <h2 class="mb-40 small text-center">Bilgi Yenile</h2>
+                        
+                        <div id="user_edit_info_error" class="mb-25 mt-25 f-18 medium text-warning text-center"></div>
+
+                        <div class="mb-20">
+                            <input type="text" name="name" value="{{ app.user.name }}" placeholder="İsim" class="input border-gray color-heading placeholder-heading w-full" />
+                        </div>
+
+                        <div class="mb-20">
+                            <input type="email" name="email" value="{{ app.user.email }}" placeholder="Email" required class="input border-gray color-heading placeholder-heading w-full" />
+                        </div>
+
+                        <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}"/>
+                        
+                        <button class="mt-25 btn bg-info action-1 w-full">Bilgi Yenile</button>
+                    </form>
+
+                </div>
+
+                <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+ 
+                    <form id="user_edit_password_form" class="bg-light mx-auto mw-430 radius10 pt-40 px-50 pb-30" action="{{ path("user_edit_password") }}" method="POST">
+                        <h2 class="mb-40 small text-center">Şifre Yenile</h2>
+                        
+                        <div id="user_edit_password_error" class="mb-25 mt-25 f-18 medium text-warning text-center"></div>
+
+                        <div class="mb-20">
+                            <input type="password" name="password-old" placeholder="Eski şifre" class="input border-gray color-heading placeholder-heading w-full" />
+                        </div>
+
+                        <div class="mb-20">
+                            <input type="password" name="password-new" placeholder="Yeni şifre" required class="input border-gray color-heading placeholder-heading w-full" />
+                        </div>
+
+                        <div class="mb-20">
+                            <input type="password" name="password-new-repeat" placeholder="Yeni şifre tekrar" required class="input border-gray color-heading placeholder-heading w-full" />
+                        </div>
+
+                        <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}"/>
+                        
+                        <button class="mt-25 btn bg-info action-1 w-full">Şifre Yenile</button>
+                    </form>
+                
+                </div>
+
+                <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="user-delete-tab">
+                    
+                    <form id="user_delete_form" class="bg-light mx-auto mw-430 radius10 pt-40 px-50 pb-30" action="{{ path("user_delete") }}" method="POST">
+                        <h2 class="mb-40 small text-center">Hesap Sil</h2>
+                        
+                        <div id="user_delete_error" class="mb-25 mt-25 f-18 medium text-warning text-center"></div>
+
+                        <div class="mb-20">
+                            <input type="password" name="password" placeholder="Şifre" class="input border-gray color-heading placeholder-heading w-full" />
+                        </div>
+
+                        <div class="mb-20">
+                            <input type="password" name="password-repeat" placeholder="Şifre tekrar" required class="input border-gray color-heading placeholder-heading w-full" />
+                        </div>
+
+                        <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}"/>
+                        
+                        <button class="mt-25 btn bg-info action-1 w-full">Hesap Sil</button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endif %}
+
 {% endblock %}

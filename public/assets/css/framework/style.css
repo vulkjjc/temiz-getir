@@ -1998,7 +1998,7 @@ b, strong {
 }
 /* 8. Forms */
 .form_1 {
-  background: #521a21 url(/assets/img/icons/form_1_bg.jpg) no-repeat 50% 50%;
+  background: #0dcaf0 url(/assets/img/icons/form_1_bg.jpg) no-repeat 50% 50%;
   background-size: cover;
 }
 @media (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {

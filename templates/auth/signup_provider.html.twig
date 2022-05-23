@@ -1,37 +1,9 @@
 {% extends "main.html.twig" %}
 
-{% set page_title = "Signup Provider" %}
+{% set page_title = "İş Hesabı Yarat" %}
 
 {% block body %}
-    {% include "location/location_select_forms.html.twig" %}
 
-    <form id="provider_signup_form" class="main-box card-box block-middle" action="{{ path("signup_provider_init") }}" method="POST">
-        <div class="main-title card-title"> Create a Provider Account </div>
+    {% include "layouts/signup_provider_section.html.twig" %}
 
-        <div id="provider_signup_error"></div>
-
-        <div class="card-cont block-middle">
-            <input class="main-input card-input" name="name" placeholder="name" pattern="^[a-zA-Z\s]{1,25}$" required>
-            <input class="main-input card-input" name="email" placeholder="email" type="email" required>
-
-            <select id="country-select" class="main-input card-input" name="country-id" required>
-                <option value="" selected>(Country)</option>
-                {% for country in countries %}
-                    <option value="{{ country.getId() }}">{{ country.getName() }}</option>
-                {% endfor %}
-            </select>
-
-            <div id="city-select-cont"></div>
-            <div id="province-select-cont"></div>
-
-            <input class="main-input card-input" name="address" placeholder="address" pattern="^.{1,125}$" required>
-            <input class="main-input card-input" name="password" type="password" placeholder="password" required>
-            <input class="main-input card-input" name="password-repeat" type="password" placeholder="password repeat" required>
-        </div>
-
-        <input type="hidden" name="user-role" value="ROLE_PROVIDER">
-        <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}"/>
-
-        <button class="main-button card-button" type="submit" name="submit"> Signup </button>
-    </form>
 {% endblock %}

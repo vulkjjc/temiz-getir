@@ -6,12 +6,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Repository\CountryRepository;
+
 class HomeController extends AbstractController
 {
+    private CountryRepository $countryRepository;
+
+    public function __construct(CountryRepository $countryRepository) 
+    {
+        $this->countryRepository = $countryRepository;
+    }
+
     #[Route("/", name: "home", methods: ["GET"])]
     public function index(): Response
     {
-        return $this->render("home/index.html.twig");
+        $countries = $this->countryRepository->findAll();
+
+        return $this->render("home/index.html.twig", ["countries" => $countries]);
     }
 
     #[Route("/about", name: "about", methods: ["GET"])]

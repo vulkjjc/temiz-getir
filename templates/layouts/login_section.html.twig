@@ -1,0 +1,29 @@
+<section class="form_1 pt-120 pb-120">
+    <div class="container px-xl-0">
+        
+        <form class="bg-light mx-auto mw-430 radius10 pt-40 px-50 pb-30" action="{{ path("login") }}" method="POST">
+            <h2 class="mb-40 small text-center">Giriş Yap</h2>
+
+            {% include "layouts/form_error.html.twig" %}
+
+            <div class="mb-20">
+                <input type="email" name="email" placeholder="Email" required class="input border-gray color-heading placeholder-heading w-full" />
+            </div>
+
+            <div class="mb-20">
+                <input type="password" name="password" placeholder="Şifre" required class="input border-gray color-heading placeholder-heading w-full" />
+            </div>
+    
+            <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}">
+            
+            <button class="mt-25 btn bg-info action-1 w-full">Giriş Yap</button>
+
+            <div class="mt-50 hr bg-gray h-1"></div>
+
+            <div class="mt-25 f-18 medium color-heading text-center">
+                Şifrenizi mi unuttunuz? <a href="{{ path("password_reset") }}" class="link-info">Şifre Yenile</a>
+            </div>
+        </form>
+
+    </div>
+</section>

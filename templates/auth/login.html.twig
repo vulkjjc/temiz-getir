@@ -1,28 +1,9 @@
 {% extends "main.html.twig" %}
 
-{% set page_title = "Login" %}
+{% set page_title = "Giriş Yap" %}
 
 {% block body %}
-    <form class="main-box card-box block-middle" action="{{ path("login") }}" method="POST">
-        <div class="main-title card-title"> Login </div>
 
-        {% if error.message is defined %}
-            <div class="main-error card-message"> {{ error.message }} </div>
-        {% elseif app.request.get("success") %}
-            <div class="main-success card-message"> {{ app.request.get("success") }} </div>
-        {% endif %}
+    {% include "layouts/login_section.html.twig" %}
 
-        <div class="card-cont block-middle">
-            <input class="main-input card-input" name="email" placeholder="email" type="email" required>
-            <input class="main-input card-input" name="password" type="password" placeholder="password" required>
-        </div>
-
-        <div class="card-info-text-cont">
-            <a class="info-text" href="{{ path("password_reset") }}"> Forgot password? </a>
-        </div>
-
-        <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}">
-
-        <button class="main-button card-button" type="submit" name="submit"> Login </button>
-    </form>
 {% endblock %}

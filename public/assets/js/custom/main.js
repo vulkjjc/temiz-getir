@@ -87,7 +87,7 @@ if (countrySelect && countrySelectForm && citySelectCont && citySelectForm && pr
             {
                 "name": "city-id",
                 "id": "city-select",
-                "defaultOptionText": "(Cities)"
+                "defaultOptionText": "(Şehir)"
             }
         );
 
@@ -104,7 +104,7 @@ if (countrySelect && countrySelectForm && citySelectCont && citySelectForm && pr
                     {
                         "name": "province-id",
                         "id": "province-select",
-                        "defaultOptionText": "(Provinces)"
+                        "defaultOptionText": "(İlçe)"
                     }
                 );
             });

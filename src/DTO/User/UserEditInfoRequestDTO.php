@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use App\Interface\DTO\RequestDTOInterface;
+use App\Validator\User as UserAssert;
 
 class UserEditInfoRequestDTO implements RequestDTOInterface
 {
@@ -16,7 +17,7 @@ class UserEditInfoRequestDTO implements RequestDTOInterface
     private string $name;
 
     #[Assert\AtLeastOneOf([
-        new Assert\Email,
+        new UserAssert\UserEmailAvailable,
         new Assert\Blank
     ], includeInternalMessages: false, message: "Email is invalid.")]
     private string $email;

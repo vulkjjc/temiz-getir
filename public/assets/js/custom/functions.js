@@ -37,7 +37,7 @@ const locationSelectAction = (locationSelectForm) => {
 const createLocationSelectElement = (name, id) => {
     let locationSelectElement = document.createElement("select");
 
-    locationSelectElement.className = "main-input card-input";
+    locationSelectElement.className = "input border-gray color-heading placeholder-heading w-full";
     locationSelectElement.name = name;
     locationSelectElement.id = id;
 
