@@ -8,7 +8,7 @@ if (userEditInfoForm && userEditInfoError)
             .then(async (response) => {
                 let error = await getRequestErrorOrRedirect(response);
                 if (error)
-                    userEditInfoError.innerHTML = "<div class='main-error settings-message'> " + error + " </div>";
+                    userEditInfoError.innerText = error;
             });
     });
 
@@ -22,7 +22,7 @@ if (userEditPasswordForm && userEditInfoError)
             .then(async (response) => {
                 let error = await getRequestErrorOrRedirect(response);
                 if (error)
-                    userEditPasswordError.innerHTML = "<div class='main-error settings-message'> " + error + " </div>";
+                    userEditPasswordError.innerHTML = error;
             });
     });
 
@@ -36,7 +36,7 @@ if (userDeleteForm && userDeleteError)
             .then(async (response) => {
                 let error = await getRequestErrorOrRedirect(response);
                 if (error)
-                    userDeleteError.innerHTML = "<div class='main-error settings-message'> " + error + " </div>";
+                    userDeleteError.innerHTML = error;
             });
     });
 
@@ -50,21 +50,21 @@ if (customerSignupForm && customerSignupError)
             .then(async (response) => {
                 let error = await getRequestErrorOrRedirect(response);
                 if (error)
-                    customerSignupError.innerHTML = "<div class='main-error card-message'> " + error + " </div>";
+                    customerSignupError.innerHTML = error;
             });
     });
 
-const providerSignupForm = document.getElementById("provider_signup_form");
-const providerSignupError = document.getElementById("provider_signup_error");
-if (providerSignupForm && providerSignupError)
-    providerSignupForm.addEventListener("submit", async (event) => {
+const providerSignupRequestForm = document.getElementById("provider_signup_request_form");
+const providerSignupRequestError = document.getElementById("provider_signup_request_error");
+if (providerSignupRequestForm && providerSignupRequestError)
+    providerSignupRequestForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        await getFormRequestResponse(providerSignupForm, {"method": "POST"})
+        await getFormRequestResponse(providerSignupRequestForm, {"method": "POST"})
             .then(async (response) => {
                 let error = await getRequestErrorOrRedirect(response);
                 if (error)
-                    providerSignupError.innerHTML = "<div class='main-error card-message'> " + error + " </div>";
+                    providerSignupRequestError.innerHTML = error;
             });
     });
 

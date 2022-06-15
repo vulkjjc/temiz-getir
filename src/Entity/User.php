@@ -24,6 +24,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     #[ORM\Column(type: 'string', length: 255)]
     private $email;
 
+    #[ORM\OneToOne(targetEntity: Phone::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $phone;
+
     #[ORM\Column(type: 'string', length: 1500)]
     private $password;
 
@@ -62,6 +66,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPhone(): ?Phone
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?Phone $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }

@@ -9,11 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\CountryRepository;
 use App\Service\User\UserSignupService;
 use App\Service\Email\EmailSendVerificationService;
-use App\DTO\UserCustomer\UserCustomerSignupRequestDTO;
+use App\DTO\UserProvider\UserProviderSignupRequestDTO;
 use App\DTO\Location\LocationAddRequestDTO;
 use App\DTO\Phone\PhoneAddRequestDTO;
 
-class CustomerSignupController extends AbstractController
+class ProviderSignupRequestController extends AbstractController
 {
     private CountryRepository $countryRepository;
     private UserSignupService $userSignupService;
@@ -29,28 +29,33 @@ class CustomerSignupController extends AbstractController
         $this->emailSendVerificationService = $emailSendVerificationService;
     }
 
-    #[Route("/signup/customer", name: "signup_customer", methods: ["GET"])]
-    public function signupCustomer() : Response
+    #[Route("/signup/request/provider", name: "signup_request_provider", methods: ["GET"])]
+    public function signupRequestProvider(): Response
     {
         $countries = $this->countryRepository->findAll();
 
-        return $this->render("auth/signup_customer.html.twig", ["countries" => $countries]);
+        return $this->render("auth/signup_request_provider.html.twig", ["countries" => $countries]);
     }
 
-    #[Route("/signup/customer/init", name: "signup_customer_init", methods: ["POST"])]
-    public function signupCustomerInit(
-        UserCustomerSignupRequestDTO $userCustomerSignupRequestDTO,
+    #[Route("/signup/request/provider/init", name: "signup_request_provider_init", methods: ["POST"])]
+    public function signupRequestProviderInit(
+        UserProviderSignupRequestDTO $userProviderSignupRequestDTO,
         LocationAddRequestDTO $locationAddRequestDTO,
         PhoneAddRequestDTO $phoneAddRequestDTO
     ): Response {
         $user = $this->userSignupService->attemptToSignupUser(
-            $userCustomerSignupRequestDTO,
+            $userProviderSignupRequestDTO,
             $locationAddRequestDTO,
             $phoneAddRequestDTO
         );
 
         $this->emailSendVerificationService->sendEmailVerification($user, "signup_verify");
 
-        return $this->redirect($this->generateUrl("login", ["success" => "Email verification sent successfully."]));
+        return $this->redirect(
+            $this->generateUrl(
+                "signup_request_provider", 
+                ["success" => "Email verification sent successfully."]
+            )
+        );
     }
 }

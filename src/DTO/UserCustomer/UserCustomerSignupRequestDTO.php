@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 use App\Interface\DTO\RequestDTOInterface;
 use App\Interface\DTO\User\UserSignupRequestDTOInterface;
-use App\Validator\Token as TokenAssert;
 
 class UserCustomerSignupRequestDTO implements RequestDTOInterface, UserSignupRequestDTOInterface
 {

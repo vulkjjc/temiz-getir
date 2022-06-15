@@ -2,100 +2,101 @@
 
 {% block body %}
 
+    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+        <div class="card mw-900 mx-auto mt-40 radius10">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="user-info-tab" data-bs-toggle="tab" href="#user-info" role="tab" aria-controls="user-info" aria-selected="true">Kullanıcı Bilgisi</a>
+                    </li>
 
-{% if is_granted("IS_AUTHENTICATED_FULLY") %}
-    <div class="card mw-900 mx-auto mt-40 radius10">
-        <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="user-info-tab" data-bs-toggle="tab" href="#user-info" role="tab" aria-controls="user-info" aria-selected="true">Kullanıcı Bilgisi</a>
-                </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="password-tab" data-bs-toggle="tab" href="#password" role="tab" aria-controls="password" aria-selected="false">Şifre</a>
+                    </li>
 
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="password-tab" data-bs-toggle="tab" href="#password" role="tab" aria-controls="password" aria-selected="false">Şifre</a>
-                </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="account-tab" data-bs-toggle="tab" href="#account" role="tab" aria-controls="account" aria-selected="false">Hesap</a>
+                    </li>
+                </ul>
+            </div>
 
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="account-tab" data-bs-toggle="tab" href="#account" role="tab" aria-controls="account" aria-selected="false">Hesap</a>
-                </li>
-            </ul>
-        </div>
+            <div class="card-body">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="user-info" role="tabpanel" aria-labelledby="user-info-tab">
 
-        <div class="card-body">
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="user-info" role="tabpanel" aria-labelledby="user-info-tab">
+                        <form id="user_edit_info_form" class="bg-light mx-auto mw-430 radius10 pt-40 px-50 pb-30" action="{{ path("user_edit_info") }}" method="POST">
+                            <h2 class="mb-40 small text-center">Bilgi Yenile</h2>
+                            
+                            <div id="user_edit_info_error" class="mb-25 mt-25 f-18 medium text-warning text-center"></div>
+                            {% include "layouts/success.html.twig" %}
 
-                    <form id="user_edit_info_form" class="bg-light mx-auto mw-430 radius10 pt-40 px-50 pb-30" action="{{ path("user_edit_info") }}" method="POST">
-                        <h2 class="mb-40 small text-center">Bilgi Yenile</h2>
-                        
-                        <div id="user_edit_info_error" class="mb-25 mt-25 f-18 medium text-warning text-center"></div>
+                            <div class="mb-20">
+                                <input type="text" name="name" value="{{ app.user.name }}" placeholder="İsim" class="input border-gray color-heading placeholder-heading w-full" />
+                            </div>
 
-                        <div class="mb-20">
-                            <input type="text" name="name" value="{{ app.user.name }}" placeholder="İsim" class="input border-gray color-heading placeholder-heading w-full" />
-                        </div>
+                            <div class="mb-20">
+                                <input type="email" name="email" value="{{ app.user.email }}" placeholder="Email" required class="input border-gray color-heading placeholder-heading w-full" />
+                            </div>
 
-                        <div class="mb-20">
-                            <input type="email" name="email" value="{{ app.user.email }}" placeholder="Email" required class="input border-gray color-heading placeholder-heading w-full" />
-                        </div>
+                            <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}"/>
+                            
+                            <button class="mt-25 btn bg-info action-1 w-full">Bilgi Yenile</button>
+                        </form>
 
-                        <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}"/>
-                        
-                        <button class="mt-25 btn bg-info action-1 w-full">Bilgi Yenile</button>
-                    </form>
+                    </div>
 
-                </div>
+                    <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+     
+                        <form id="user_edit_password_form" class="bg-light mx-auto mw-430 radius10 pt-40 px-50 pb-30" action="{{ path("user_edit_password") }}" method="POST">
+                            <h2 class="mb-40 small text-center">Şifre Yenile</h2>
+                            
+                            <div id="user_edit_password_error" class="mb-25 mt-25 f-18 medium text-warning text-center"></div>
+                            {% include "layouts/success.html.twig" %}
 
-                <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
- 
-                    <form id="user_edit_password_form" class="bg-light mx-auto mw-430 radius10 pt-40 px-50 pb-30" action="{{ path("user_edit_password") }}" method="POST">
-                        <h2 class="mb-40 small text-center">Şifre Yenile</h2>
-                        
-                        <div id="user_edit_password_error" class="mb-25 mt-25 f-18 medium text-warning text-center"></div>
+                            <div class="mb-20">
+                                <input type="password" name="password-old" placeholder="Eski şifre" class="input border-gray color-heading placeholder-heading w-full" />
+                            </div>
 
-                        <div class="mb-20">
-                            <input type="password" name="password-old" placeholder="Eski şifre" class="input border-gray color-heading placeholder-heading w-full" />
-                        </div>
+                            <div class="mb-20">
+                                <input type="password" name="password-new" placeholder="Yeni şifre" required class="input border-gray color-heading placeholder-heading w-full" />
+                            </div>
 
-                        <div class="mb-20">
-                            <input type="password" name="password-new" placeholder="Yeni şifre" required class="input border-gray color-heading placeholder-heading w-full" />
-                        </div>
+                            <div class="mb-20">
+                                <input type="password" name="password-new-repeat" placeholder="Yeni şifre tekrar" required class="input border-gray color-heading placeholder-heading w-full" />
+                            </div>
 
-                        <div class="mb-20">
-                            <input type="password" name="password-new-repeat" placeholder="Yeni şifre tekrar" required class="input border-gray color-heading placeholder-heading w-full" />
-                        </div>
-
-                        <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}"/>
-                        
-                        <button class="mt-25 btn bg-info action-1 w-full">Şifre Yenile</button>
-                    </form>
-                
-                </div>
-
-                <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="user-delete-tab">
+                            <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}"/>
+                            
+                            <button class="mt-25 btn bg-info action-1 w-full">Şifre Yenile</button>
+                        </form>
                     
-                    <form id="user_delete_form" class="bg-light mx-auto mw-430 radius10 pt-40 px-50 pb-30" action="{{ path("user_delete") }}" method="POST">
-                        <h2 class="mb-40 small text-center">Hesap Sil</h2>
+                    </div>
+
+                    <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="user-delete-tab">
                         
-                        <div id="user_delete_error" class="mb-25 mt-25 f-18 medium text-warning text-center"></div>
+                        <form id="user_delete_form" class="bg-light mx-auto mw-430 radius10 pt-40 px-50 pb-30" action="{{ path("user_delete") }}" method="POST">
+                            <h2 class="mb-40 small text-center">Hesap Sil</h2>
+                            
+                            <div id="user_delete_error" class="mb-25 mt-25 f-18 medium text-warning text-center"></div>
 
-                        <div class="mb-20">
-                            <input type="password" name="password" placeholder="Şifre" class="input border-gray color-heading placeholder-heading w-full" />
-                        </div>
+                            <div class="mb-20">
+                                <input type="password" name="password" placeholder="Şifre" class="input border-gray color-heading placeholder-heading w-full" />
+                            </div>
 
-                        <div class="mb-20">
-                            <input type="password" name="password-repeat" placeholder="Şifre tekrar" required class="input border-gray color-heading placeholder-heading w-full" />
-                        </div>
+                            <div class="mb-20">
+                                <input type="password" name="password-repeat" placeholder="Şifre tekrar" required class="input border-gray color-heading placeholder-heading w-full" />
+                            </div>
 
-                        <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}"/>
-                        
-                        <button class="mt-25 btn bg-info action-1 w-full">Hesap Sil</button>
-                    </form>
+                            <input type="hidden" name="csrf-token" value="{{ csrf_token("csrf-token") }}"/>
+                            
+                            <button class="mt-25 btn bg-info action-1 w-full">Hesap Sil</button>
+                        </form>
+
+                    </div>
 
                 </div>
-
             </div>
         </div>
-    </div>
-{% endif %}
+    {% endif %}
 
 {% endblock %}

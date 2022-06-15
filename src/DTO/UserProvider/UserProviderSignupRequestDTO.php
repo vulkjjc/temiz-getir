@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 use App\Interface\DTO\RequestDTOInterface;
 use App\Interface\DTO\User\UserSignupRequestDTOInterface;
-use App\Validator\Token as TokenAssert;
 
 class UserProviderSignupRequestDTO implements RequestDTOInterface, UserSignupRequestDTOInterface
 {
@@ -51,7 +50,7 @@ class UserProviderSignupRequestDTO implements RequestDTOInterface, UserSignupReq
     {
         return $this->email;
     }
-
+   
     /**
      * @see UserSignupRequestDTOInterface
      */

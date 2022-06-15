@@ -23,9 +23,13 @@ class ExceptionSubscriber implements EventSubscriberInterface
             return null;
         }
 
-        preg_match("/:\s.+\./", $exception->getMessage(), $message);
+        preg_match("/(:\s.+\.)/", $exception->getMessage(), $message);
         if (!$message) {
-            return null;
+            preg_match("/(.+\.)/", $exception->getMessage(), $message);
+    
+            if (!$message) {
+                return null;
+            }
         }
         
         $message = trim($message[0], ":\n ");
